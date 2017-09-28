@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using bwarrickBugTracker.Models;
 using bwarrickBugTracker.Models.CodeFirst;
+using bwarrickBugTracker.Models.Helpers;
 
 namespace bwarrickBugTracker.Controllers
 {
@@ -115,6 +116,44 @@ namespace bwarrickBugTracker.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //GET: EditProjectUsers
+        public ActionResult EditProjectUsers(int projectId)
+        {
+           
+            var project = db.Projects.Find(projectId);
+            var helper = new ProjectAssignHelper();
+            var model = new ProjectUserViewModels();
+            model.Project= project;
+            model.SelectedUsers = helper.ListUsersOnProject(project).ToArray;
+            model.Users = new MultiSelectList(db.Users, "Name", "Name", model.SelectedUsers);
+
+
+            return View(model);
+
+          
+        }
+        //POST: EditProjectUsers
+        [HttpPost]
+        public ActionResult EditProjectUsers(AdminUserViewModels model)
+        {
+            var user = db.Users.Find(model.User.Id);
+            UserRoleHelper helper = new UserRoleHelper();
+            foreach (var role in db.Roles.Select(r => r.Name).ToList())
+            {
+                helper.RemoveUserFromRole(user.Id, role);
+            }
+            if (model.SelectedRoles != null)
+            {
+                foreach (var role in model.SelectedRoles)
+                {
+                    helper.AddUserToRole(user.Id, role);
+                }
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
