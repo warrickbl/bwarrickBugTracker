@@ -1,0 +1,77 @@
+﻿@model IEnumerable<bwarrickBugTracker.Models.CodeFirst.Project>
+
+@{
+    ViewBag.Title = "AllProjects";
+}
+
+<h2>All Projects</h2>
+
+<p>
+    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+
+</p>
+<table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Users)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.AuthorId)
+            </th>*@
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                @foreach (var user in item.Users)
+                {
+                    @user.FullName <br />
+                }
+            </td>
+
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.AuthorId)
+                </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Edit Project Users", "EditProjectUsers", "Projects", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("My Projects", "Index", "Projects")

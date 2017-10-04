@@ -58,6 +58,21 @@ namespace bwarrickBugTracker.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeNameViewModel
+    {
+       
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Updated First Name")]
+        public string UpdatedFirstName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Updated Last Name")]
+        public string UpdatedLastName { get; set; }
+
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]

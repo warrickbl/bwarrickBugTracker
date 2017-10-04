@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -211,6 +212,7 @@
     <Compile Include="Models\Helpers\AdminUserViewModels.cs" />
     <Compile Include="Models\Helpers\ProjectAssignHelper.cs" />
     <Compile Include="Models\Helpers\ProjectUserViewModels.cs" />
+    <Compile Include="Models\Helpers\TicketViewModel.cs" />
     <Compile Include="Models\Helpers\UserRoleHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -218,6 +220,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\kingadmin-dashboard-theme-v1.6.2\theme\assets\img\gallery\bee-512.png" />
+    <Content Include="Assets\kingadmin-dashboard-theme-v1.6.2\theme\assets\img\gallery\bugtrack2.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -736,6 +740,8 @@
     <Content Include="Assets\kingadmin-dashboard-theme-v1.6.2\theme\sass\vendors\_summernote.scss" />
     <Content Include="Assets\kingadmin-dashboard-theme-v1.6.2\theme\sass\vendors\_typeahead.js-bootstrap.scss" />
     <Content Include="Assets\kingadmin-dashboard-theme-v1.6.2\theme\sass\vendors\_ui.jqgrid.scss" />
+    <None Include="Properties\PublishProfiles\bwarrick-bugtracker - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\bwarrick-bugtracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -793,6 +799,14 @@
     <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\EditUserRoles.cshtml" />
+    <Content Include="Views\Projects\EditProjectUsers.cshtml" />
+    <Content Include="Views\Projects\AllProjects.cshtml" />
+    <Content Include="Views\Manage\ChangeName.cshtml" />
+    <Content Include="private.config" />
+    <Content Include="Views\Tickets\SubmitterIndex.cshtml" />
+    <Content Include="Views\Tickets\DevIndex.cshtml" />
+    <Content Include="Views\Tickets\PMIndex.cshtml" />
+    <Content Include="Views\Tickets\DevEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

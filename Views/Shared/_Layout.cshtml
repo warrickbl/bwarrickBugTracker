@@ -29,7 +29,7 @@
     <link rel="shortcut icon" href="assets/ico/favicon.png">
 
     @*@Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")*@
+        @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body class="sidebar-fixed topnav-fixed ">
     @Scripts.Render("~/bundles/jquery")
@@ -44,13 +44,13 @@
                     <a href="#" class="pull-left toggle-sidebar-collapse"><i class="fa fa-bars"></i></a>
                     <!-- logo -->
                     <div class="pull-left left logo">
-                        <a href="index.html"><img src="assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard" /></a>
-                        <h1 class="sr-only">KingAdmin Admin Dashboard</h1>
+                        <a href="@Url.Action("Index", "Home")" style="color:white;"><img src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/img/gallery/bee-512.png" style="height:25px; width:25px;" alt="KingAdmin - Admin Dashboard" /> BugTracker Pro</a>
+
                     </div>
                     <!-- end logo -->
                     <div class="pull-right right">
                         <!-- search box -->
-                        <div class="searchbox">
+                        <div class="searchbox" style="margin-top:10px;">
                             <div id="tour-searchbox" class="input-group">
                                 <input type="search" class="form-control" placeholder="enter keyword here...">
                                 <span class="input-group-btn">
@@ -61,8 +61,8 @@
                         <!-- end search box -->
                         <!-- top-bar-right -->
                         <div class="top-bar-right">
-                            <button type="button" id="start-tour" class="btn btn-link"><i class="fa fa-refresh"></i> Start Tour</button>
-                            <button type="button" id="global-volume" class="btn btn-link btn-global-volume"><i class="fa"></i></button>
+                            @*<button type="button" id="start-tour" class="btn btn-link"><i class="fa fa-refresh"></i> Start Tour</button>
+                                <button type="button" id="global-volume" class="btn btn-link btn-global-volume"><i class="fa"></i></button>*@
                             <div class="notifications">
                                 <ul>
                                     <!-- notification: inbox -->
@@ -231,11 +231,13 @@
                             </div>
                             <!-- logged user and the menu -->
                             <div class="logged-user">
+                                @Html.Partial("_LoginPartial")
                                 <div class="btn-group">
-                                    <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                        <img src="assets/img/user-avatar.png" alt="User Avatar" />
-                                        <span class="name">Stacy Rose</span> <span class="caret"></span>
-                                    </a>
+                                    @*@if (User.Identity.IsAuthenticated) {
+                                        <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                            <img src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/img/user-avatar.png" alt="User Avatar" />
+                                            @*<span class="name">Stacy Rose</span> <span class="caret"></span>*@
+                                    @*</a>}*@
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="#">
@@ -256,7 +258,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                   
+
                                 </div>
                             </div>
                             <!-- end logged user and the menu -->
@@ -274,172 +276,192 @@
             <div class="sidebar-scroll">
                 <nav class="main-nav">
                     <ul class="main-menu">
+                        @*<li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="fa fa-dashboard fa-fw"></i><span class="text">Dashboard</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu ">
+                                    <li><a href="index.html"><span class="text">Dashboard v1</span></a></li>
+                                    <li><a href="index-transparent.html"><span class="text">Dashboard v1 Transp.</span></a></li>
+                                    <li><a href="index-dashboard-v2.html"><span class="text">Dashboard v2</span></a></li>
+                                    <li><a href="index-dashboard-v2-transparent.html"><span class="text">Dashboard v2 Trans.</span></a></li>
+                                    <li><a href="index-dashboard-v3.html"><span class="text">Dashboard v3</span></a></li>
+                                    <li><a href="index-dashboard-v4.html"><span class="text">Dashboard v4 <span class="badge element-bg-color-blue">New</span></span></a></li>
+                                </ul>
+                            </li>*@
+                        @*<li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="fa fa-navicon"></i><span class="text">Navigations <span class="badge element-bg-color-blue">New</span></span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu ">
+                                    <li><a href="nav-default-fixed.html"><span class="text">Default Fixed Sidebar</span></a></li>
+                                    <li><a href="nav-normal.html"><span class="text">Normal Sidebar</span></a></li>
+                                </ul>
+                            </li>*@
+                        @*<li class="active">
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="fa fa-columns"></i><span class="text">Layouts <span class="badge element-bg-color-blue">New</span></span>
+                                    <i class="toggle-icon fa fa-angle-down"></i>
+                                </a>
+                                <ul class="sub-menu open">
+                                    <li class="active"><a href="layout-collapsed.html"><span class="text">Collapsed Sidebar</span></a></li>
+                                    <li><a href="layout-minified.html"><span class="text">Minified Sidebar</span></a></li>
+                                    <li><a href="layout-ontop-navigation.html"><span class="text">On-Top Navigation</span></a></li>
+                                </ul>
+                            </li>*@
+                        @*<li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="fa fa-clipboard fa-fw"></i><span class="text">Pages</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu ">
+                                    <li><a href="page-profile.html"><span class="text">Profile</span></a></li>
+                                    <li><a href="page-invoice.html"><span class="text">Invoice</span></a></li>
+                                    <li><a href="page-knowledgebase.html"><span class="text">Knowledge Base</span></a></li>
+                                    <li><a href="page-new-message.html"><span class="text">New Message</span></a></li>
+                                    <li><a href="page-view-message.html"><span class="text">View Message</span></a></li>
+                                    <li><a href="page-search-result.html"><span class="text">Search Result</span></a></li>
+                                    <li><a href="page-submit-ticket.html"><span class="text">Submit Ticket</span></a></li>
+                                    <li><a href="page-faq.html"><span class="text">FAQ</span></a></li>
+                                    <li><a href="page-register.html"><span class="text">Register</span></a></li>
+                                    <li><a href="page-register-transparent.html"><span class="text">Register Transparent</span></a></li>
+                                    <li><a href="page-login.html"><span class="text">Login</span></a></li>
+                                    <li><a href="page-login-transparent.html"><span class="text">Login Transparent</span></a></li>
+                                    <li><a href="page-404.html"><span class="text">404</span></a></li>
+                                    <li><a href="page-404-transparent.html"><span class="text">404 Transparent</span></a></li>
+                                    <li><a href="page-blank.html"><span class="text">Blank Page</span></a></li>
+                                </ul>
+                            </li>*@
+                        @*<li><a href="page-inbox.html"><i class="fa fa-envelope-o"></i><span class="text">Inbox <span class="badge red-bg">32</span></span></a></li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="fa fa-file"></i><span class="text">File Manager</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu ">
+                                    <li><a href="page-file-manager.html"><span class="text">Default</span></a></li>
+                                    <li><a href="page-file-manager-transparent.html"><span class="text">Transparent</span></a></li>
+                                </ul>
+                            </li>*@
+                        <li><span class="text"><a href="@Url.Action("Index", "Home")"><i class="fa fa-briefcase"></i> Home</a></span></li>
+                        <li><span class="text"><a href="@Url.Action("Index", "Projects")"><i class="fa fa-tasks"></i> Projects</a></span></li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><span class="text"><a href="@Url.Action("Index", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
+                        }
+                        else if (User.IsInRole("ProjectManager"))
+                        {
+                            <li><span class="text"><a href="@Url.Action("PMIndex", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
+                        }
+                        else if (User.IsInRole("Submitter"))
+                        {
+                            <li><span class="text"><a href="@Url.Action("SubmitterIndex", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
+                        }
+                        else if (User.IsInRole("Developer"))
+                        {
+                            <li><span class="text"><a href="@Url.Action("DevIndex", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
+                        }
+
+                        @*<li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="fa fa-bar-chart-o fw"></i><span class="text">Charts &amp; Statistics</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu ">
+                                    <li><a href="charts-statistics.html"><span class="text">Charts</span></a></li>
+                                    <li><a href="charts-statistics-transparent.html"><span class="text">Charts Transparent</span></a></li>
+                                    <li><a href="charts-statistics-interactive.html"><span class="text">Interactive Charts</span></a></li>
+                                    <li><a href="charts-statistics-interactive-transparent.html"><span class="text">Interactive Charts Transparent</span></a></li>
+                                    <li><a href="charts-statistics-real-time.html"><span class="text">Realtime Charts</span></a></li>
+                                    <li><a href="charts-statistics-real-time-transparent.html"><span class="text">Realtime Charts Transparent</span></a></li>
+                                    <li><a href="charts-d3charts.html"><span class="text">D3 Charts</span></a></li>
+                                </ul>
+                            </li>*@
                         <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-dashboard fa-fw"></i><span class="text">Dashboard</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="index.html"><span class="text">Dashboard v1</span></a></li>
-                                <li><a href="index-transparent.html"><span class="text">Dashboard v1 Transp.</span></a></li>
-                                <li><a href="index-dashboard-v2.html"><span class="text">Dashboard v2</span></a></li>
-                                <li><a href="index-dashboard-v2-transparent.html"><span class="text">Dashboard v2 Trans.</span></a></li>
-                                <li><a href="index-dashboard-v3.html"><span class="text">Dashboard v3</span></a></li>
-                                <li><a href="index-dashboard-v4.html"><span class="text">Dashboard v4 <span class="badge element-bg-color-blue">New</span></span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-navicon"></i><span class="text">Navigations <span class="badge element-bg-color-blue">New</span></span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="nav-default-fixed.html"><span class="text">Default Fixed Sidebar</span></a></li>
-                                <li><a href="nav-normal.html"><span class="text">Normal Sidebar</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="active">
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-columns"></i><span class="text">Layouts <span class="badge element-bg-color-blue">New</span></span>
-                                <i class="toggle-icon fa fa-angle-down"></i>
-                            </a>
-                            <ul class="sub-menu open">
-                                <li class="active"><a href="layout-collapsed.html"><span class="text">Collapsed Sidebar</span></a></li>
-                                <li><a href="layout-minified.html"><span class="text">Minified Sidebar</span></a></li>
-                                <li><a href="layout-ontop-navigation.html"><span class="text">On-Top Navigation</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-clipboard fa-fw"></i><span class="text">Pages</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="page-profile.html"><span class="text">Profile</span></a></li>
-                                <li><a href="page-invoice.html"><span class="text">Invoice</span></a></li>
-                                <li><a href="page-knowledgebase.html"><span class="text">Knowledge Base</span></a></li>
-                                <li><a href="page-new-message.html"><span class="text">New Message</span></a></li>
-                                <li><a href="page-view-message.html"><span class="text">View Message</span></a></li>
-                                <li><a href="page-search-result.html"><span class="text">Search Result</span></a></li>
-                                <li><a href="page-submit-ticket.html"><span class="text">Submit Ticket</span></a></li>
-                                <li><a href="page-faq.html"><span class="text">FAQ</span></a></li>
-                                <li><a href="page-register.html"><span class="text">Register</span></a></li>
-                                <li><a href="page-register-transparent.html"><span class="text">Register Transparent</span></a></li>
-                                <li><a href="page-login.html"><span class="text">Login</span></a></li>
-                                <li><a href="page-login-transparent.html"><span class="text">Login Transparent</span></a></li>
-                                <li><a href="page-404.html"><span class="text">404</span></a></li>
-                                <li><a href="page-404-transparent.html"><span class="text">404 Transparent</span></a></li>
-                                <li><a href="page-blank.html"><span class="text">Blank Page</span></a></li>
-                            </ul>
-                        </li>
-                        <li><a href="page-inbox.html"><i class="fa fa-envelope-o"></i><span class="text">Inbox <span class="badge red-bg">32</span></span></a></li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-file"></i><span class="text">File Manager</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="page-file-manager.html"><span class="text">Default</span></a></li>
-                                <li><a href="page-file-manager-transparent.html"><span class="text">Transparent</span></a></li>
-                            </ul>
-                        </li>
-                        <li><a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">Projects</span></a></li>
-                        <li><a href="page-project-detail.html"><i class="fa fa-tasks"></i><span class="text">Project Detail</span></a></li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-bar-chart-o fw"></i><span class="text">Charts &amp; Statistics</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="charts-statistics.html"><span class="text">Charts</span></a></li>
-                                <li><a href="charts-statistics-transparent.html"><span class="text">Charts Transparent</span></a></li>
-                                <li><a href="charts-statistics-interactive.html"><span class="text">Interactive Charts</span></a></li>
-                                <li><a href="charts-statistics-interactive-transparent.html"><span class="text">Interactive Charts Transparent</span></a></li>
-                                <li><a href="charts-statistics-real-time.html"><span class="text">Realtime Charts</span></a></li>
-                                <li><a href="charts-statistics-real-time-transparent.html"><span class="text">Realtime Charts Transparent</span></a></li>
-                                <li><a href="charts-d3charts.html"><span class="text">D3 Charts</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-edit fw"></i><span class="text">Forms</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="form-inplace-editing.html"><span class="text">In-place Editing</span></a></li>
-                                <li><a href="form-elements.html"><span class="text">Form Elements</span></a></li>
-                                <li><a href="form-layouts.html"><span class="text">Form Layouts</span></a></li>
-                                <li><a href="form-bootstrap-elements.html"><span class="text">Bootstrap Elements</span></a></li>
-                                <li><a href="form-validations.html"><span class="text">Validation</span></a></li>
-                                <li><a href="form-file-upload.html"><span class="text">File Upload</span></a></li>
-                                <li><a href="form-text-editor.html"><span class="text">Text Editor</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-list-alt fw"></i><span class="text">UI Elements</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="ui-elements-general.html"><span class="text">General Elements</span></a></li>
-                                <li><a href="ui-elements-tabs.html"><span class="text">Tabs</span></a></li>
-                                <li><a href="ui-elements-buttons.html"><span class="text">Buttons</span></a></li>
-                                <li><a href="ui-elements-icons.html"><span class="text">Icons <span class="badge element-bg-color-blue">Updated</span></span></a></li>
-                                <li><a href="ui-elements-flash-message.html"><span class="text">Flash Message</span></a></li>
-                            </ul>
-                        </li>
-                        <li><a href="widgets.html"><i class="fa fa-puzzle-piece fa-fw"></i><span class="text">Widgets</span></a></li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-gears fw"></i><span class="text">Components</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu ">
-                                <li><a href="components-wizard.html"><span class="text">Wizard (with validation)</span></a></li>
-                                <li><a href="components-calendar.html"><span class="text">Calendar</span></a></li>
-                                <li><a href="components-maps.html"><span class="text">Maps</span></a></li>
-                                <li><a href="components-maps-transparent.html"><span class="text">Maps Transparent</span></a></li>
-                                <li><a href="components-gallery.html"><span class="text">Gallery</span></a></li>
-                                <li><a href="components-tree-view.html"><span class="text">Tree View </span></a></li>
-                                <li><a href="components-tree-view-transparent.html"><span class="text">Tree View Transparent</span></a></li>
-                            </ul>
-                        </li>
+                            @*<a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-edit fw"></i><span class="text">Forms</span>
+                                        <i class="toggle-icon fa fa-angle-left"></i>
+                                    </a>
+                                    <ul class="sub-menu ">
+                                        <li><a href="form-inplace-editing.html"><span class="text">In-place Editing</span></a></li>
+                                        <li><a href="form-elements.html"><span class="text">Form Elements</span></a></li>
+                                        <li><a href="form-layouts.html"><span class="text">Form Layouts</span></a></li>
+                                        <li><a href="form-bootstrap-elements.html"><span class="text">Bootstrap Elements</span></a></li>
+                                        <li><a href="form-validations.html"><span class="text">Validation</span></a></li>
+                                        <li><a href="form-file-upload.html"><span class="text">File Upload</span></a></li>
+                                        <li><a href="form-text-editor.html"><span class="text">Text Editor</span></a></li>
+                                    </ul>
+                                </li>*@
+                            @*<li>
+                                    <a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-list-alt fw"></i><span class="text">UI Elements</span>
+                                        <i class="toggle-icon fa fa-angle-left"></i>
+                                    </a>
+                                    <ul class="sub-menu ">
+                                        <li><a href="ui-elements-general.html"><span class="text">General Elements</span></a></li>
+                                        <li><a href="ui-elements-tabs.html"><span class="text">Tabs</span></a></li>
+                                        <li><a href="ui-elements-buttons.html"><span class="text">Buttons</span></a></li>
+                                        <li><a href="ui-elements-icons.html"><span class="text">Icons <span class="badge element-bg-color-blue">Updated</span></span></a></li>
+                                        <li><a href="ui-elements-flash-message.html"><span class="text">Flash Message</span></a></li>
+                                    </ul>
+                                </li>*@
+                            @*<li><a href="widgets.html"><i class="fa fa-puzzle-piece fa-fw"></i><span class="text">Widgets</span></a></li>
+                                <li>
+                                    <a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-gears fw"></i><span class="text">Components</span>
+                                        <i class="toggle-icon fa fa-angle-left"></i>
+                                    </a>
+                                    <ul class="sub-menu ">
+                                        <li><a href="components-wizard.html"><span class="text">Wizard (with validation)</span></a></li>
+                                        <li><a href="components-calendar.html"><span class="text">Calendar</span></a></li>
+                                        <li><a href="components-maps.html"><span class="text">Maps</span></a></li>
+                                        <li><a href="components-maps-transparent.html"><span class="text">Maps Transparent</span></a></li>
+                                        <li><a href="components-gallery.html"><span class="text">Gallery</span></a></li>
+                                        <li><a href="components-tree-view.html"><span class="text">Tree View </span></a></li>
+                                        <li><a href="components-tree-view-transparent.html"><span class="text">Tree View Transparent</span></a></li>
+                                    </ul>
+                                </li>*@
                         <li>
                             <a href="#" class="js-sub-menu-toggle">
                                 <i class="fa fa-table fw"></i><span class="text">Tables</span>
                                 <i class="toggle-icon fa fa-angle-left"></i>
                             </a>
                             <ul class="sub-menu ">
-                                <li><a href="tables-static-table.html"><span class="text">Static Table</span></a></li>
-                                <li><a href="tables-dynamic-table.html"><span class="text">Dynamic Table</span></a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><span class="text">@Html.ActionLink("Users", "Index", "Admin")</span></li>
+                                }
+                                @*<li><a href="tables-dynamic-table.html"><span class="text">Dynamic Table</span></a></li>*@
                             </ul>
                         </li>
-                        <li><a href="typography.html"><i class="fa fa-font fa-fw"></i><span class="text">Typography</span></a></li>
-                        <li>
-                            <a href="#" class="js-sub-menu-toggle">
-                                <i class="fa fa-bars"></i>
-                                <span class="text">Menu Lvl 1</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="">
-                                    <a href="#" class="js-sub-menu-toggle">
-                                        <span class="text">Menu Lvl 2</span>
-                                        <i class="toggle-icon fa fa-angle-left"></i>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">Menu Lvl 3</a></li>
-                                        <li><a href="#">Menu Lvl 3</a></li>
-                                        <li><a href="#">Menu Lvl 3</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="text">Menu Lvl 2</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @*<li><a href="typography.html"><i class="fa fa-font fa-fw"></i><span class="text">Typography</span></a></li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="fa fa-bars"></i>
+                                    <span class="text">Menu Lvl 1</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="">
+                                        <a href="#" class="js-sub-menu-toggle">
+                                            <span class="text">Menu Lvl 2</span>
+                                            <i class="toggle-icon fa fa-angle-left"></i>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#">Menu Lvl 3</a></li>
+                                            <li><a href="#">Menu Lvl 3</a></li>
+                                            <li><a href="#">Menu Lvl 3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Menu Lvl 2</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>*@
                     </ul>
                 </nav>
                 <!-- /main-nav -->
@@ -449,59 +471,58 @@
         <!-- MAIN CONTENT WRAPPER -->
         <div id="main-content-wrapper" class="content-wrapper expanded-full">
             <!-- top general alert -->
-            <div class="alert alert-danger top-general-alert">
-                <span>If you <strong>can't see the logo</strong> on the top left, please reset the style on right style switcher (for upgraded theme only).</span>
-                <button type="button" class="close">&times;</button>
-            </div>
+            @*<div class="alert alert-danger top-general-alert">
+                    <span>If you <strong>can't see the logo</strong> on the top left, please reset the style on right style switcher (for upgraded theme only).</span>
+                    <button type="button" class="close">&times;</button>
+                </div>*@
             <!-- end top general alert -->
-            <div class="row">
-                <div class="col-lg-4 ">
-                    <ul class="breadcrumb">
-                        <li><i class="fa fa-home"></i><a href="#">Home</a></li>
-                        <li><a href="#">Layouts</a></li>
-                        <li class="active">Collapsed Menu Sidebar</li>
-                    </ul>
-                </div>
-                <div class="col-lg-8 ">
-                    <div class="top-content">
-                        <ul class="list-inline quick-access">
-                            <li>
-                                <a href="charts-statistics-interactive.html">
-                                    <div class="quick-access-item bg-color-green">
-                                        <i class="fa fa-bar-chart-o"></i>
-                                        <h5>CHARTS</h5><em>basic, interactive, real-time</em>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="page-inbox.html">
-                                    <div class="quick-access-item bg-color-blue">
-                                        <i class="fa fa-envelope"></i>
-                                        <h5>INBOX</h5><em>inbox with gmail style</em>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="tables-dynamic-table.html">
-                                    <div class="quick-access-item bg-color-orange">
-                                        <i class="fa fa-table"></i>
-                                        <h5>DYNAMIC TABLE</h5><em>tons of features and interactivity</em>
-                                    </div>
-                                </a>
-                            </li>
+            @*<div class="row">
+                    <div class="col-lg-4 ">
+                        <ul class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a href="#">Home</a></li>
+                            <li><a href="#">Layouts</a></li>
+                            <li class="active">Collapsed Menu Sidebar</li>
                         </ul>
                     </div>
-                </div>
-            </div>
+                    <div class="col-lg-8 ">
+                        <div class="top-content">
+                            <ul class="list-inline quick-access">
+                                <li>
+                                    <a href="charts-statistics-interactive.html">
+                                        <div class="quick-access-item bg-color-green">
+                                            <i class="fa fa-bar-chart-o"></i>
+                                            <h5>CHARTS</h5><em>basic, interactive, real-time</em>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="page-inbox.html">
+                                        <div class="quick-access-item bg-color-blue">
+                                            <i class="fa fa-envelope"></i>
+                                            <h5>INBOX</h5><em>inbox with gmail style</em>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="tables-dynamic-table.html">
+                                        <div class="quick-access-item bg-color-orange">
+                                            <i class="fa fa-table"></i>
+                                            <h5>DYNAMIC TABLE</h5><em>tons of features and interactivity</em>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
             <!-- main -->
             <div class="content">
                 @RenderBody()
-                
             </div>
             <!-- /main -->
             <!-- FOOTER -->
             <footer class="footer">
-                &copy; 2017 The Develovers
+                &copy; Bwarrick 2017
             </footer>
             <!-- END FOOTER -->
         </div>
@@ -512,11 +533,18 @@
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/jquery/jquery-2.1.0.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/bootstrap/bootstrap.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/modernizr/modernizr.js"></script>
-    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>
+    @*<script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>*@
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/king-common.js"></script>
+    <script sr="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.time.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.sparkline.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/king-chart-stat.js"></script>
 
-   
+
+
 
 </body>
 </html>
@@ -525,46 +553,46 @@
 
 
 @*<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
 
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>*@
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@

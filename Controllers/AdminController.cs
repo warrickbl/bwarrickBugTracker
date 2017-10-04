@@ -32,6 +32,7 @@ namespace bwarrickBugTracker.Controllers
         }
 
         //GET: EditUserRoles
+        [Authorize(Roles = "Admin")]
         public ActionResult EditUserRoles(string id)
         {
             var user = db.Users.Find(id);
@@ -44,6 +45,7 @@ namespace bwarrickBugTracker.Controllers
             return View(model);
         }
         //POST: EditUserRoles
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditUserRoles(AdminUserViewModels model)
         {

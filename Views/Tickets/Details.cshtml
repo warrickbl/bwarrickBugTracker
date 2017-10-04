@@ -93,6 +93,30 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
+    @if (User.IsInRole("Admin"))
+    {
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+    else if (User.IsInRole("ProjectManager"))
+    {
+        <div>
+            @Html.ActionLink("Back to List", "PMIndex")
+        </div>
+    }
+    else if (User.IsInRole("Submitter"))
+    {
+        <div>
+            @Html.ActionLink("Back to List", "SubmitterIndex")
+        </div>
+    }
+    else if (User.IsInRole("Developer"))
+    {
+        <div>
+            @Html.ActionLink("Back to List", "DevIndex")
+        </div>
+    }
+
 </p>
