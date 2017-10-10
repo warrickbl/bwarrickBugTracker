@@ -20,6 +20,7 @@ namespace bwarrickBugTracker.Models.CodeFirst
         public string Description { get; set; }
         public string AuthorId { get; set; }
 
+        //public virtual ApplicationUser Author { get; set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
     }

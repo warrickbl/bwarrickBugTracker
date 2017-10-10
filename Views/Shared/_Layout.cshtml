@@ -12,11 +12,13 @@
     <meta name="description" content="KingAdmin - Bootstrap Admin Dashboard Theme">
     <meta name="author" content="The Develovers">
     <!-- CSS -->
+    
     <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/skins/teal.css" rel="stylesheet" />
     <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/main.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/MultiSelect/multi-select.css" rel="stylesheet" />
     <!--[if lte IE 9]>
         <link href="assets/css/main-ie.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/main-ie-part2.css" rel="stylesheet" type="text/css"/>
@@ -26,7 +28,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/kingadmin-favicon114x114.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/kingadmin-favicon72x72.png">
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/ico/kingadmin-favicon57x57.png">
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    @*<link rel="shortcut icon" href="assets/ico/favicon.png">*@
 
     @*@Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")*@
@@ -34,7 +36,7 @@
 <body class="sidebar-fixed topnav-fixed ">
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+   
     <!-- WRAPPER -->
     <div id="wrapper" class="wrapper">
         <!-- TOP BAR -->
@@ -80,7 +82,7 @@
                                                     <a href="#">
                                                         <div class="media">
                                                             <div class="media-left">
-                                                                <img class="media-object" src="assets/img/user1.png" alt="Antonio">
+                                                                @*<img class="media-object" src="assets/img/user1.png" alt="Antonio">*@
                                                             </div>
                                                             <div class="media-body">
                                                                 <h5 class="media-heading name">Antonius</h5>
@@ -94,7 +96,7 @@
                                                     <a href="#">
                                                         <div class="media">
                                                             <div class="media-left">
-                                                                <img class="media-object" src="assets/img/user2.png" alt="Antonio">
+                                                                @*<img class="media-object" src="assets/img/user2.png" alt="Antonio">*@
                                                             </div>
                                                             <div class="media-body">
                                                                 <h5 class="media-heading name">Michael</h5>
@@ -108,7 +110,7 @@
                                                     <a href="#">
                                                         <div class="media">
                                                             <div class="media-left">
-                                                                <img class="media-object" src="assets/img/user3.png" alt="Antonio">
+                                                                @*<img class="media-object" src="assets/img/user3.png" alt="Antonio">*@
                                                             </div>
                                                             <div class="media-body">
                                                                 <h5 class="media-heading name">Stella</h5>
@@ -122,7 +124,7 @@
                                                     <a href="#">
                                                         <div class="media">
                                                             <div class="media-left">
-                                                                <img class="media-object" src="assets/img/user4.png" alt="Antonio">
+                                                                @*<img class="media-object" src="assets/img/user4.png" alt="Antonio">*@
                                                             </div>
                                                             <div class="media-body">
                                                                 <h5 class="media-heading name">Jane Doe</h5>
@@ -136,7 +138,7 @@
                                                     <a href="#">
                                                         <div class="media">
                                                             <div class="media-left">
-                                                                <img class="media-object" src="assets/img/user5.png" alt="Antonio">
+                                                                @*<img class="media-object" src="assets/img/user5.png" alt="Antonio">*@
                                                             </div>
                                                             <div class="media-body">
                                                                 <h5 class="media-heading name">John Simmons</h5>
@@ -346,23 +348,10 @@
                                 </ul>
                             </li>*@
                         <li><span class="text"><a href="@Url.Action("Index", "Home")"><i class="fa fa-briefcase"></i> Home</a></span></li>
-                        <li><span class="text"><a href="@Url.Action("Index", "Projects")"><i class="fa fa-tasks"></i> Projects</a></span></li>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li><span class="text"><a href="@Url.Action("Index", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
-                        }
-                        else if (User.IsInRole("ProjectManager"))
-                        {
-                            <li><span class="text"><a href="@Url.Action("PMIndex", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
-                        }
-                        else if (User.IsInRole("Submitter"))
-                        {
-                            <li><span class="text"><a href="@Url.Action("SubmitterIndex", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
-                        }
-                        else if (User.IsInRole("Developer"))
-                        {
-                            <li><span class="text"><a href="@Url.Action("DevIndex", "Tickets")"><i class="fa fa-tasks"></i> Tickets</a></span></li>
-                        }
+                        <li><span class="text"><a href="@Url.Action("Index", "Projects")"><i class="fa fa-tasks"></i> Projects</a></span></li>                                 
+                        <li><span class="text"><a href="@Url.Action("Index", "Tickets")"><i class="fa fa-ticket"></i> Tickets</a></span></li>
+                       
+                        
 
                         @*<li>
                                 <a href="#" class="js-sub-menu-toggle">
@@ -530,21 +519,32 @@
     </div>
     <!-- END WRAPPER -->
     <!-- Javascript -->
+
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/jquery/jquery-2.1.0.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/bootstrap/bootstrap.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/modernizr/modernizr.js"></script>
     @*<script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>*@
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/king-common.js"></script>
-    <script sr="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.min.js"></script>
+    @*<script sr="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.resize.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.time.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js"></script>
     <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/jquery.sparkline.min.js"></script>
-    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/king-chart-stat.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/stat/flot/king-chart-stat.js"></script>*@
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/datatable/exts/dataTables.tableTools.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/datatable/exts/dataTables.colReorder.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/datatable/dataTables.bootstrap.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/jqgrid/i18n/grid.locale-en.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/jqgrid/jquery.jqGrid.fluid.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/king-table.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/datatable/exts/dataTables.colVis.bootstrap.js"></script>
 
 
-
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

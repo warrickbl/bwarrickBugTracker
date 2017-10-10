@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@*<h2>Details</h2>
 
 <div>
     <h4>Project</h4>
@@ -53,9 +53,59 @@
     </dl>
 </div>
 <p>
-    @*@if (User.IsInRole ("Admin") || User.IsInRole("ProjectManager"))
-    {
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
-    }*@
+    @if (User.IsInRole ("Admin") || User.IsInRole("ProjectManager"))
+        {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        }
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
+<!-- MAIN CONTENT WRAPPER -->
+<div id="main-content-wrapper" class="content-wrapper ">
+    <!-- main -->
+    <div class="content">
+        <div class="main-header">
+            <h2>Details</h2>
+            <em>@(Model.Title)</em>
+        </div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        <div class="main-content">
+            <div class="tab-content profile-page">
+                <!-- PROFILE TAB CONTENT -->
+                <div class="tab-pane profile active" id="profile-tab">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="user-info-right">
+                                <div class="basic-info">
+                                    <h3><i class="fa fa-square"></i> Basic Information</h3>
+                                    <p class="data-row">
+                                        <span class="data-name">Project Title</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Title)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Created</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Created)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Updated</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Updated)</span>
+                                    </p>              
+                                    <p class="data-row">
+                                        <span class="data-name">Description</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Description)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Created By</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.AuthorId)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PROFILE TAB CONTENT -->

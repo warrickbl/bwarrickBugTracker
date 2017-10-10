@@ -6,72 +6,83 @@
 
 <h2>All Projects</h2>
 
-<p>
-    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
-    {
-        @Html.ActionLink("Create New", "Create")
-    }
-
-</p>
-<table class="table">
-
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Updated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Users)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.AuthorId)
-            </th>*@
-    </tr>
+<!-- FEATURED DATA TABLE -->
+<div class="widget widget-table">
+    <div class="widget-header">
+        <h3>
+            <i class="fa fa-table"></i>Projects
+            @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+            {
+                @Html.ActionLink("My Projects | ", "Index", "Projects")
+                @Html.ActionLink("Create New", "Create")
+            }
+        </h3>
+    </div>
+    <div class="widget-content">
+        <table id="featured-datatable" class="table table-sorting table-striped table-hover datatable">
+            <thead>
+                <tr>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Users</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
 
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-
-            <td>
-                @foreach (var user in item.Users)
+                @foreach (var item in Model)
                 {
-                    @user.FullName <br />
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Updated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+
+                        <td>
+                            @foreach (var user in item.Users)
+                            {
+                                @user.FullName <br />
+                            }
+                        </td>
+
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.AuthorId)
+                            </td>*@
+                        <td>
+
+                            @Html.ActionLink("Details", "Details", new { id = item.Id })  <p></p>
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id })  <p></p>
+
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })  <p></p>
+                                @Html.ActionLink("Edit Project Users", "EditProjectUsers", "Projects", new { id = item.Id }, null) <p></p>
+                            }
+                            @if (User.IsInRole("Submitter"))
+                            {
+                                @Html.ActionLink("Create Ticket", "Create", "Tickets", new { id = item.Id }, null)
+                            }
+                        </td>
+                    </tr>
                 }
-            </td>
 
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.AuthorId)
-                </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Edit Project Users", "EditProjectUsers", "Projects", new { id = item.Id }, null)
-            </td>
-        </tr>
-    }
 
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- END FEATURED DATA TABLE -->
 
 @Html.ActionLink("My Projects", "Index", "Projects")

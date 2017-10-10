@@ -10,8 +10,7 @@ using bwarrickBugTracker.Models;
 using bwarrickBugTracker.Models.CodeFirst;
 using Microsoft.AspNet.Identity;
 using bwarrickBugTracker.Models.Helpers;
-
-
+using System.IO;
 
 namespace bwarrickBugTracker.Controllers
 {
@@ -21,47 +20,41 @@ namespace bwarrickBugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tickets 
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public ActionResult Index()
         {
-            var tickets = db.Tickets.Include(t => t.AssignToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
-            return View(tickets.ToList());
-        }
-
-        //GET: PM Tickets
-        [Authorize(Roles = "ProjectManager")]
-        public ActionResult PMIndex()
-        {
+            ViewBag.UserTimeZone = db.Users.Find(User.Identity.GetUserId()).TimeZone;
             var user = db.Users.Find(User.Identity.GetUserId());
             var projects = db.Projects.Where(p => p.Users.Any(u => u.Id == user.Id)).ToList();
-            foreach (var item in projects)
+            var tickets = db.Tickets.Include(t => t.AssignToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
+            if (User.IsInRole("Admin"))
             {
-                return View(item.Tickets);
+                return View(tickets.ToList());
+            }
+            else if (User.IsInRole("ProjectManager"))
+            {
+                foreach (var item in projects)
+                {
+                    return View(item.Tickets);
+                }
+            }
+            else if (User.IsInRole("Submitter"))
+            {
+                return View(tickets.Where(t => t.OwnerUserId == user.Id).ToList());
+            }
+            else if (User.IsInRole("Developer"))
+            {
+                return View(tickets.Where(t => t.AssignToUserId == user.Id).ToList());
             }
             return RedirectToAction("Index", "Home");
         }
 
-        //GET: Sub Tickets
-        [Authorize(Roles = "Submitter")]
-        public ActionResult SubmitterIndex()
-        {
-            var user = db.Users.Find(User.Identity.GetUserId());
-            var tickets = db.Tickets.Include(t => t.AssignToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
-            return View(tickets.Where(t => t.OwnerUserId == user.Id).ToList());
-        }
-
-        //GET: Dev Tickets
-        [Authorize(Roles = "Developer")]
-        public ActionResult DevIndex()
-        {
-            var user = db.Users.Find(User.Identity.GetUserId());
-            var tickets = db.Tickets.Include(t => t.AssignToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
-            return View(tickets.Where(t => t.AssignToUserId == user.Id).ToList());
-        }
-
         // GET: Tickets/Details/5
+
         public ActionResult Details(int? id)
         {
+            ProjectAssignHelper helper = new ProjectAssignHelper();
+            var user = db.Users.Find(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -71,7 +64,24 @@ namespace bwarrickBugTracker.Controllers
             {
                 return HttpNotFound();
             }
-            return View(ticket);
+            if (User.IsInRole("Admin"))
+            {
+                return View(ticket);
+            }
+            else if (User.IsInRole("ProjectManager") && helper.IsUserOnProject(user.Id, ticket.ProjectId))
+            {
+                return View(ticket);
+            }
+            else if (User.IsInRole("Developer") && ticket.AssignToUserId == user.Id)
+            {
+                return View(ticket);
+            }
+            else if (User.IsInRole("Submitter") && ticket.OwnerUserId == user.Id)
+            {
+                return View(ticket);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Tickets/Create
@@ -108,7 +118,7 @@ namespace bwarrickBugTracker.Controllers
             {
                 ticket.TicketStatusId = 1;
                 ticket.OwnerUserId = User.Identity.GetUserId();
-                ticket.Created = DateTimeOffset.Now;
+                ticket.Created = DateTimeOffset.UtcNow;
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -128,6 +138,8 @@ namespace bwarrickBugTracker.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            ProjectAssignHelper assignhelper = new ProjectAssignHelper();
+            var user = db.Users.Find(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -146,7 +158,24 @@ namespace bwarrickBugTracker.Controllers
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
             ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
-            return View(ticket);
+
+            if (User.IsInRole("Admin"))
+            {
+                return View(ticket);
+            }
+            else if (User.IsInRole("ProjectManager") && assignhelper.IsUserOnProject(user.Id, ticket.ProjectId))
+            {
+                return View(ticket);
+            }
+            else if (User.IsInRole("Developer") && ticket.AssignToUserId == user.Id)
+            {
+                return View(ticket);
+            }
+            else if (User.IsInRole("Submitter") && ticket.OwnerUserId == user.Id)
+            {
+                return View(ticket);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         //// GET: Tickets/Edit- DEV & SUB
@@ -184,7 +213,7 @@ namespace bwarrickBugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                ticket.Updated = DateTimeOffset.Now;
+                ticket.Updated = DateTimeOffset.UtcNow;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -223,6 +252,183 @@ namespace bwarrickBugTracker.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
+
+        // POST: TicketComments/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment([Bind(Include = "Id,Body,Created,TicketId,AuthorId")] TicketComment ticketComment)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.Users.Find(User.Identity.GetUserId());
+                ticketComment.AuthorId = user.Id;
+                ticketComment.Created = DateTimeOffset.Now;
+                db.TicketComments.Add(ticketComment);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId });
+            }
+
+            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketComment.AuthorId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComment.TicketId);
+            return View(ticketComment);
+        }
+
+        // GET: Comments/Edit/5
+        
+        public ActionResult EditComment(int? id)
+        {
+            ProjectAssignHelper assignhelper = new ProjectAssignHelper();
+            var user = db.Users.Find(User.Identity.GetUserId());
+            TicketComment ticketComment = db.TicketComments.Find(id);
+            Ticket ticket = ticketComment.Ticket;
+            if ((User.IsInRole("Admin") || (ticketComment.AuthorId == user.Id ) || (User.IsInRole("ProjectManager") && assignhelper.IsUserOnProject(user.Id, ticket.ProjectId))))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                if (ticketComment == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(ticketComment);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+        }
+
+        // POST: Comments/Edit
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditComment([Bind(Include = "Id,AuthorId,Body,Created,Updated,TicketId")] TicketComment ticketComment)
+        {
+            ProjectAssignHelper assignhelper = new ProjectAssignHelper();
+            Ticket ticket = ticketComment.Ticket;
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if ((User.IsInRole("Admin") || (ticketComment.AuthorId == user.Id) || (User.IsInRole("ProjectManager") && assignhelper.IsUserOnProject(user.Id, ticket.ProjectId))))
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(ticketComment).State = EntityState.Modified;
+                    ticketComment.Updated = DateTime.Now;
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId});
+                }
+
+                return View(ticket);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        }
+
+        // POST: TicketComments/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(int id)
+        {
+            TicketComment ticketComment = db.TicketComments.Find(id);
+            db.TicketComments.Remove(ticketComment);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId});
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAttachment([Bind(Include = "Id,TicketId,Description")] TicketAttachment ticketAttachment, HttpPostedFileBase attachment)
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if (attachment != null)
+            {
+                var ext = Path.GetExtension(attachment.FileName).ToLower();
+                if (ext != ".png" && ext != ".jpg" && ext != ".jpeg" && ext != ".gif" && ext != ".bmp" && ext != ".pdf")
+                    ModelState.AddModelError("image", "Invalid Format");
+            }
+            if (ModelState.IsValid)
+            {
+                if (attachment != null)
+                {
+                    ticketAttachment.Created = DateTimeOffset.Now;
+                    ticketAttachment.AuthorId = user.Id;
+                    var filePath = "/Content/Attachments/";
+                    var absPath = Server.MapPath("~" + filePath);
+                    ticketAttachment.FileUrl = filePath + attachment.FileName;
+                    attachment.SaveAs(Path.Combine(absPath, attachment.FileName));
+                }
+                db.TicketAttachments.Add(ticketAttachment);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", "Tickets", new { id = ticketAttachment.TicketId });
+        }
+
+
+        // POST: Attachments/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAttachment(int id)
+        {
+            TicketAttachment ticketAttachment = db.TicketAttachments.Find(id);
+            ProjectAssignHelper assignhelper = new ProjectAssignHelper();
+            Ticket ticket = ticketAttachment.Ticket;
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if ((User.IsInRole("Admin") || (ticketAttachment.AuthorId == user.Id) || (User.IsInRole("ProjectManager") && assignhelper.IsUserOnProject(user.Id, ticket.ProjectId))))
+            {
+                
+                var filePath = "/Content/Attachments/";
+                var absPath = Server.MapPath("~" + filePath);
+                //System.IO.File.Delete(absPath);
+                db.TicketAttachments.Remove(ticketAttachment);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", "Tickets", new { id = ticketAttachment.TicketId });
+        }
+
+
+    //    public override int CreateHistory()
+    //    {
+    //        var modifiedEntities = ChangeTracker.Entries()
+    //            .Where(p => p.State == EntityState.Modified).ToList();
+    //        var now = DateTime.UtcNow;
+
+    //        foreach (var change in modifiedEntities)
+    //        {
+    //            var entityName = change.Entity.GetType().Name;
+    //            var primaryKey = GetPrimaryKeyValue(change);
+
+    //            foreach (var prop in change.OriginalValues.PropertyNames)
+    //            {
+    //                var originalValue = change.OriginalValues[prop].ToString();
+    //                var currentValue = change.CurrentValues[prop].ToString();
+    //                if (originalValue != currentValue)
+    //                {
+    //                    ChangeLog log = new ChangeLog()
+    //                    {
+    //                        EntityName = entityName,
+    //                        PrimaryKeyValue = primaryKey.ToString(),
+    //                        PropertyName = prop,
+    //                        OldValue = originalValue,
+    //                        NewValue = currentValue,
+    //                        DateChanged = now
+    //                    };
+    //                    ChangeLogs.Add(log);
+    //                }
+    //            }
+    //        }
+    //        return base.CreateHistory();
+    //    }
+    //}
+
 
         protected override void Dispose(bool disposing)
         {

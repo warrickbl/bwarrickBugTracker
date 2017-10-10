@@ -1,11 +1,29 @@
 ﻿@using bwarrickBugTracker.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+   
+       Layout = null;
 }
+<head>
+    <!-- CSS -->
+
+    <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/skins/teal.css" rel="stylesheet" />
+    <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/MultiSelect/multi-select.css" rel="stylesheet" />
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/kingadmin-favicon144x144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/kingadmin-favicon114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/kingadmin-favicon72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/ico/kingadmin-favicon57x57.png">
+    @*<link rel="shortcut icon" href="assets/ico/favicon.png">*@
+</head>
 
 <h2>@ViewBag.Title.</h2>
-<div class="row">
+@*<div class="row">
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -60,4 +78,68 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}*@
+<body style="background-color:teal">
+    <div class="wrapper full-page-wrapper page-auth page-login text-center">
+        <div class="inner-page">
+            <div class="logo">
+                @*<a href="index.html"><img src="assets/img/kingadmin-logo.png" alt="" /></a>*@
+            </div>
+            @*<button type="button" class="btn btn-auth-facebook"><span>Login via Facebook</span></button>
+            <div class="separator"><span>OR</span></div>*@
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+            <div class="login-box center-block">
+                <form class="form-horizontal" role="form">
+                    <p class="title">Use your username</p>
+                    <div class="form-group">
+                        <label for="username" class="control-label sr-only">Email Address</label>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Email Address" name="Email" class="form-control">
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    </div>                           
+                            </div>
+                        </div>
+                    </div>
+                    <label for="password" class="control-label sr-only">Password</label>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                    <div class="input-group">
+                                        <input type="password" placeholder="Password" name="password" class="form-control">
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    </div>                             
+                            </div>
+                        </div>
+                    </div>
+                    <label class="fancy-checkbox">
+                        <input type="checkbox">
+                        <span>Remember me next time</span>
+                    </label>
+                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login</button>
+                </form>
+                <p>
+                    @Html.ActionLink("Register as a new user", "Register")
+                </p>
+                
+                <p>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>
+            </div>
 }
+        </div>
+    </div>
+
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/jquery/jquery-2.1.0.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Assets/kingadmin-dashboard-theme-v1.6.2/theme/assets/js/plugins/modernizr/modernizr.js"></script>
+    
+</body>
+

@@ -139,6 +139,8 @@ namespace bwarrickBugTracker.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            var timezones = TimeZoneInfo.GetSystemTimeZones();
+            ViewBag.TimeZone = new SelectList(timezones, "Id", "Id");
             return View();
         }
 
@@ -151,7 +153,7 @@ namespace bwarrickBugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, TimeZone = model.TimeZone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

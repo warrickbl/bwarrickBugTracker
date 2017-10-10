@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 
 namespace bwarrickBugTracker.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -21,6 +22,7 @@ namespace bwarrickBugTracker.Controllers
         [Authorize]
         public ActionResult Index(string userId)
         {
+            ViewBag.UserTimeZone = db.Users.Find(User.Identity.GetUserId()).TimeZone;
             var user = db.Users.Find(User.Identity.GetUserId());
             ProjectAssignHelper helper = new ProjectAssignHelper();
             helper.ListUserProjects(user.Id);
@@ -61,6 +63,7 @@ namespace bwarrickBugTracker.Controllers
         [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult Create()
         {
+
             return View();
         }
 
@@ -74,6 +77,10 @@ namespace bwarrickBugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var user = db.Users.Find(User.Identity.GetUserId());
+                project.AuthorId = user.FullName;
+                project.Created = DateTimeOffset.UtcNow;
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -108,6 +115,7 @@ namespace bwarrickBugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.Updated = DateTimeOffset.UtcNow;
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
