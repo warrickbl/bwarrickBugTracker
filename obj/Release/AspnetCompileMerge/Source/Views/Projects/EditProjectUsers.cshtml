@@ -1,0 +1,21 @@
+﻿@model bwarrickBugTracker.Models.Helpers.ProjectUserViewModels
+
+@{
+    ViewBag.Title = "EditProjectUsers";
+}
+
+<h2>Edit Project Users</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Project.Id)
+    <h3>Project Name: @Model.Project.Title</h3>
+
+    @Html.ListBox("SelectedUsers", Model.Users)
+    <button type="submit">Submit</button>
+}
+
+<div style="margin-top:40px;">
+    @Html.ActionLink("Back to Admin Index", "Index")
+</div>
+

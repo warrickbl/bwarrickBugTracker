@@ -1,0 +1,244 @@
+﻿@model bwarrickBugTracker.Models.CodeFirst.Ticket
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<!-- MAIN CONTENT WRAPPER -->
+<div id="main-content-wrapper" class="content-wrapper ">
+    <!-- main -->
+    <div class="content">
+        <div class="main-header">
+            <h2>Details</h2>
+            <em>@(Model.Title)</em>
+        </div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        <div class="main-content">
+            <div class="tab-content profile-page">
+                <!-- PROFILE TAB CONTENT -->
+                <div class="tab-pane profile active" id="profile-tab">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="user-info-right">
+                                <div class="basic-info">
+                                    <h3><i class="fa fa-square"></i> Basic Information</h3>
+                                    <p class="data-row">
+                                        <span class="data-name">Assigned to User</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.AssignToUser.FirstName)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Created By</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.OwnerUser.FirstName)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Project</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Project.Title)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Priority</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.TicketPriority.Name)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">TicketStatus</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.TicketStatus.Name)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Ticket Type</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.TicketType.Name)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Ticket Name</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Title)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Description</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Description)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Created</span>
+                                        <span class="data-value">@Html.DisplayFor(model => model.Created)</span>
+                                    </p>
+                                    <p class="data-row">
+                                        <span class="data-name">Updated</span>
+                                        <span class="data-value"> @Html.DisplayFor(model => model.Updated)</span>
+                                    </p>
+                                </div>
+                                <div class="contact_info">
+                                    <h3><i class="fa fa-square"></i> Attachments & Comments</h3>
+                                    <p class="data-row">
+                                        <span class="data-name">Attachments</span>
+                                        <span class="data-value">
+                                            @foreach (var ticketAttachment in Model.Attachments.OrderByDescending(c => c.Id))
+                                            {
+                                                <div id="attachModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content" style="padding:50px; text-align:center;">
+                                                            <div class="modal-header" style="border-style:none;">
+                                                                <button type="button" onclick="Clear()" class="close" style="font-size:45px" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                                <div class="modal-title" style="border-style:none;">
+                                                                    <h2>Are you sure you want to delete this?</h2>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    @using (Html.BeginForm("DeleteAttachment", "Tickets", new { id = ticketAttachment.Id }, FormMethod.Post, null))
+                                                                    {
+                                                                        @Html.AntiForgeryToken()
+
+                                                                        <div class="form-actions no-color" style="margin:20px; margin-left:60px;">
+                                                                            <input type="submit" value="Delete" class="btn btn-default" style="color:#49e2d6" />
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        <p><a href="@ticketAttachment.FileUrl" target="_blank">@ticketAttachment.Description</a> By: @ticketAttachment.Author.FullName @ticketAttachment.Created</p>
+
+                                                if (User.IsInRole("Admin") || (User.Identity.GetUserId()) == ticketAttachment.AuthorId)
+                                                {
+                                                    <button class="btn btn-default" data-toggle="modal" data-target="#attachModal">Delete</button>
+                                                }
+                                            }
+                                            </span>
+                                            </p>
+                                            <p class="data-row">
+                                                <span class="data-name">Comments</span>
+                                                <span class="data-value">
+                                                    @if (Model.Comments.Count == 0)
+                                                    {
+                                                <p>No Comments Have Been Posted</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        foreach (var ticketComment in Model.Comments.OrderByDescending(c => c.Id))
+                                                        {
+                                                            <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg">
+                                                                    <div class="modal-content" style="padding:50px; text-align:center;">
+                                                                        <div class="modal-header" style="border-style:none;">
+                                                                            <button type="button" onclick="Clear()" class="close" style="font-size:45px" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                                            <div class="modal-title" style="border-style:none;">
+                                                                                <h2>Are you sure you want to delete this?</h2>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                @using (Html.BeginForm("DeleteComment", "Tickets", new { id = ticketComment.Id }, FormMethod.Post, null))
+                                                                                {
+                                                                                    @Html.AntiForgeryToken()
+
+                                                                                    <div class="form-actions no-color" style="margin:20px; margin-left:60px;">
+                                                                                        <input type="submit" value="Delete" class="btn btn-default" style="color:#49e2d6" />
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <p>By: @ticketComment.Author.FullName</p>
+                                                            <p>@ticketComment.Created</p>
+                                                            <div style="border:solid; margin:20px; padding:10px;">
+                                                                @ticketComment.Body
+                                                            </div>
+
+                                                            if (User.IsInRole("Admin") || (User.Identity.GetUserId()) == ticketComment.AuthorId)
+                                                            {
+                                                                <button class="btn btn-default" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                                                @Html.ActionLink("Edit", "EditComment", "Tickets", new { id = ticketComment.Id }, new { @class = "btn btn-default", style = "color:#49e2d6" })
+                                                            }
+                                                        }
+                                                    }</span>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">Add Attachment</span>
+                                                        <span class="data-value">
+                                                            @using (Html.BeginForm("CreateAttachment", "Tickets", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+                                                            {
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="number" name="TicketId" value="@Model.Id" hidden />
+
+
+                                                                <div class="form-group">
+                                                                    <input name="attachment" type="file" class="form-control" />
+                                                                    <input type="text" name="Description" placeholder="Description" required /><br />
+                                                                    <input type="submit" value="Attach" style="color:#49e2d6" class="btn btn-default" />
+                                                                </div>
+                                                            }
+                                                        </span>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">Add Comment</span>
+                                                        <span class="data-value">
+                                                            @using (Html.BeginForm("CreateComment", "Tickets", FormMethod.Post))
+            {
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="number" name="TicketId" value="@Model.Id" hidden />
+
+                                                                <div class="form-group">
+                                                                    <textarea id="editor" class="form-control" name="Body" rows="5" placeholder="Leave A Comment"></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="submit" value="Submit" style="color:#49e2d6" class="btn btn-default" />
+                                                                </div>
+                                                            }
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="main-header">
+                            <h2>Dynamic Table</h2>
+                            <em>tables with lot of features and interactivity</em>
+                        </div>
+                        <div class="main-content">
+                            <!-- SHOW HIDE COLUMNS DATA TABLE -->
+                            <div class="widget widget-table">
+                                <div class="widget-header">
+                                    <h3><i class="fa fa-table"></i> Drap/Drop and Show/Hide Column</h3> <em> - <a href="http://datatables.net/" target="_blank">jQuery Data Table</a> enable to show/hide and drap-drop column</em>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="alert alert-info fade in">
+                                        <button class="close" data-dismiss="alert">&times;</button>
+                                        <i class="fa fa-info-circle"></i> Try to show/hide column visibility and drag the column to another position to reorder table columns.
+                                    </div>
+                                    <table id="datatable-column-interactive" class="table table-sorting table-hover table-bordered datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Ticket Property</th>
+                                                <th>Old Value</th>
+                                                <th>New Value</th>
+                                                <th>Created</th>
+                                                <th>Edited By</th>
+                                                <th>Ticket Id</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach(var item in Model.Histories) { 
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Property</td>
+                                                <td>@item.OldValue</td>
+                                                <td>@item.NewValue</td>
+                                                <td>@item.Created</td>
+                                                <td>@item.Author.FullName</td>
+                                                <td>@item.TicketId</td>
+                                            </tr>
+                                            }
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- END PROFILE TAB CONTENT -->

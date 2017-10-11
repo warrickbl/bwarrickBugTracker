@@ -246,6 +246,7 @@ namespace bwarrickBugTracker.Controllers
                 {
                     helper.StatusChange(ticket, user.Id);
                 }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
