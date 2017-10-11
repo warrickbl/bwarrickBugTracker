@@ -22,8 +22,8 @@ namespace bwarrickBugTracker.Models.Helpers
         {
             TicketHistory ticketHistory = new TicketHistory();
             Ticket oldTicket = db.Tickets.AsNoTracking().First(t => t.Id == ticket.Id);
-            ticketHistory.OldValue = oldTicket.AssignToUserId;
-            ticketHistory.NewValue = ticket.AssignToUserId;
+            ticketHistory.OldValue = oldTicket.AssignToUser.FullName;
+            ticketHistory.NewValue = db.Users.Find(ticket.AssignToUserId).FullName;
             ticketHistory.TicketId = ticket.Id;
             ticketHistory.Property = "Assign To UserId";
             ticketHistory.Created = DateTimeOffset.UtcNow;
@@ -36,8 +36,8 @@ namespace bwarrickBugTracker.Models.Helpers
         {
             TicketHistory ticketHistory = new TicketHistory();
             Ticket oldTicket = db.Tickets.AsNoTracking().First(t => t.Id == ticket.Id);
-            ticketHistory.OldValue = oldTicket.TicketTypeId.ToString();
-            ticketHistory.NewValue = ticket.TicketTypeId.ToString();
+            ticketHistory.OldValue = oldTicket.TicketType.Name;
+            ticketHistory.NewValue = db.TicketTypes.Find(ticket.TicketTypeId).Name;
             ticketHistory.TicketId = ticket.Id;
             ticketHistory.Property = "Ticket Type";
             ticketHistory.Created = DateTimeOffset.UtcNow;
@@ -78,8 +78,8 @@ namespace bwarrickBugTracker.Models.Helpers
         {
             TicketHistory ticketHistory = new TicketHistory();
             Ticket oldTicket = db.Tickets.AsNoTracking().First(t => t.Id == ticket.Id);
-            ticketHistory.OldValue = oldTicket.TicketPriorityId.ToString();
-            ticketHistory.NewValue = ticket.TicketPriorityId.ToString();
+            ticketHistory.OldValue = oldTicket.TicketPriority.Name;
+            ticketHistory.NewValue = db.TicketPriorities.Find(ticket.TicketPriorityId).Name;
             ticketHistory.TicketId = ticket.Id;
             ticketHistory.Property = "Ticket Priority";
             ticketHistory.Created = DateTimeOffset.UtcNow;
@@ -92,8 +92,8 @@ namespace bwarrickBugTracker.Models.Helpers
         {
             TicketHistory ticketHistory = new TicketHistory();
             Ticket oldTicket = db.Tickets.AsNoTracking().First(t => t.Id == ticket.Id);
-            ticketHistory.OldValue = oldTicket.TicketStatusId.ToString();
-            ticketHistory.NewValue = ticket.TicketStatusId.ToString();
+            ticketHistory.OldValue = oldTicket.TicketStatus.Name;
+            ticketHistory.NewValue = db.TicketStatuses.Find(ticket.TicketStatusId).Name;
             ticketHistory.TicketId = ticket.Id;
             ticketHistory.Property = "Ticket Status";
             ticketHistory.Created = DateTimeOffset.UtcNow;
