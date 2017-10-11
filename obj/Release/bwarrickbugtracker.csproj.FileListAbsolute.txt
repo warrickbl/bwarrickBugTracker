@@ -116,4 +116,3 @@ C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickbugtracker.csproj.CoreCompileInputs.cache
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickBugTracker.dll
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickBugTracker.pdb
-C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickbugtracker.csprojResolveAssemblyReference.cache

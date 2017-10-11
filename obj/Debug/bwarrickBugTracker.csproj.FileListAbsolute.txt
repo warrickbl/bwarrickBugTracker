@@ -113,7 +113,6 @@ C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\Microsoft.AI.Web.xml
-C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Debug\bwarrickbugtracker.csprojResolveAssemblyReference.cache
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Debug\bwarrickbugtracker.csproj.CoreCompileInputs.cache
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Debug\bwarrickBugTracker.dll
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Debug\bwarrickBugTracker.pdb
