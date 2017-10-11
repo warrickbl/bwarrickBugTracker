@@ -11,6 +11,7 @@ using bwarrickBugTracker.Models.CodeFirst;
 using Microsoft.AspNet.Identity;
 using bwarrickBugTracker.Models.Helpers;
 using System.IO;
+using System.Data.Entity.Infrastructure;
 
 namespace bwarrickBugTracker.Controllers
 {
@@ -134,17 +135,19 @@ namespace bwarrickBugTracker.Controllers
             return View(ticket);
         }
 
-        // GET: Tickets/Edit- Admin & PM
+        // GET: Tickets/Edit
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            Ticket ticket = db.Tickets.Find(id);
+            
             ProjectAssignHelper assignhelper = new ProjectAssignHelper();
             var user = db.Users.Find(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ticket ticket = db.Tickets.Find(id);
+            
             if (ticket == null)
             {
                 return HttpNotFound();
@@ -213,8 +216,36 @@ namespace bwarrickBugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = db.Users.Find(User.Identity.GetUserId());
                 ticket.Updated = DateTimeOffset.UtcNow;
+                HistoryHelper helper = new HistoryHelper();
                 db.Entry(ticket).State = EntityState.Modified;
+                TicketHistory ticketHistory = new TicketHistory();
+                Ticket oldTicket = db.Tickets.AsNoTracking().First(t => t.Id == ticket.Id);
+                if (oldTicket.AssignToUserId != ticket.AssignToUserId)
+                {
+                    helper.AssignChange(ticket, user.Id);
+                }
+                if (oldTicket.TicketType != ticket.TicketType)
+                {
+                    helper.TypeChange(ticket, user.Id);
+                }
+                if (oldTicket.Title != ticket.Title)
+                {
+                    helper.TitleChange(ticket, user.Id);
+                }
+                if (oldTicket.Description != ticket.Description)
+                {
+                    helper.DescriptionChange(ticket, user.Id);
+                }
+                if (oldTicket.TicketPriorityId != ticket.TicketPriorityId)
+                {
+                    helper.PriorityChange(ticket, user.Id);
+                }
+                if (oldTicket.TicketStatusId != ticket.TicketStatusId)
+                {
+                    helper.StatusChange(ticket, user.Id);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -262,9 +293,11 @@ namespace bwarrickBugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                HistoryHelper helper = new HistoryHelper();
                 var user = db.Users.Find(User.Identity.GetUserId());
                 ticketComment.AuthorId = user.Id;
                 ticketComment.Created = DateTimeOffset.Now;
+                helper.CommentAdd(ticketComment, user.Id);
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
                 return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId });
@@ -395,42 +428,9 @@ namespace bwarrickBugTracker.Controllers
         }
 
 
-    //    public override int CreateHistory()
-    //    {
-    //        var modifiedEntities = ChangeTracker.Entries()
-    //            .Where(p => p.State == EntityState.Modified).ToList();
-    //        var now = DateTime.UtcNow;
+     
 
-    //        foreach (var change in modifiedEntities)
-    //        {
-    //            var entityName = change.Entity.GetType().Name;
-    //            var primaryKey = GetPrimaryKeyValue(change);
-
-    //            foreach (var prop in change.OriginalValues.PropertyNames)
-    //            {
-    //                var originalValue = change.OriginalValues[prop].ToString();
-    //                var currentValue = change.CurrentValues[prop].ToString();
-    //                if (originalValue != currentValue)
-    //                {
-    //                    ChangeLog log = new ChangeLog()
-    //                    {
-    //                        EntityName = entityName,
-    //                        PrimaryKeyValue = primaryKey.ToString(),
-    //                        PropertyName = prop,
-    //                        OldValue = originalValue,
-    //                        NewValue = currentValue,
-    //                        DateChanged = now
-    //                    };
-    //                    ChangeLogs.Add(log);
-    //                }
-    //            }
-    //        }
-    //        return base.CreateHistory();
-    //    }
-    //}
-
-
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

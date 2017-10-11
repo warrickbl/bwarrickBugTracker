@@ -132,6 +132,54 @@
                 <p>
                     @Html.ActionLink("Forgot your password?", "ForgotPassword")
                 </p>
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group" hidden>
+                        <div class="input-group" hidden>
+                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="admin@demo.com" hidden>
+                            <input type="password" placeholder="Password" name="password" class="form-control" value="AdminDemo123!" hidden>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Admin Demo</button>
+
+                }
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group" hidden>
+                        <div class="input-group" hidden>
+                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="projectmanager@demo.com" hidden>
+                            <input type="password" placeholder="Password" name="password" class="form-control" value="ProjectManager123!" hidden>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Project Manager Demo</button>
+
+                }
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group" hidden>
+                        <div class="input-group" hidden>
+                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="submitter@demo.com" hidden>
+                            <input type="password" placeholder="Password" name="password" class="form-control" value="SubmitterDemo123!" hidden>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Submitter Demo</button>
+
+                }
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group" hidden>
+                        <div class="input-group" hidden>
+                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="developer@demo.com" hidden>
+                            <input type="password" placeholder="Password" name="password" class="form-control" value="DeveloperDemo123!" hidden>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Developer Demo</button>
+
+                }
             </div>
 }
         </div>
