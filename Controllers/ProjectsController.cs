@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity;
 namespace bwarrickBugTracker.Controllers
 {
     [Authorize]
-    public class ProjectsController : Controller
+    public class ProjectsController : Universal
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

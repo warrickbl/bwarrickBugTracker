@@ -196,20 +196,16 @@
                     </div>
                     <div class="content">
                         <div class="main-header">
-                            <h2>Dynamic Table</h2>
-                            <em>tables with lot of features and interactivity</em>
+                            <h2>Ticket History</h2>
+                            <em>@Html.DisplayFor(model => model.Title)</em>
                         </div>
                         <div class="main-content">
                             <!-- SHOW HIDE COLUMNS DATA TABLE -->
                             <div class="widget widget-table">
                                 <div class="widget-header">
-                                    <h3><i class="fa fa-table"></i> Drap/Drop and Show/Hide Column</h3> <em> - <a href="http://datatables.net/" target="_blank">jQuery Data Table</a> enable to show/hide and drap-drop column</em>
+                                    <h3><i class="fa fa-table"></i>@Html.DisplayFor(model => model.Title) History</h3> 
                                 </div>
                                 <div class="widget-content">
-                                    <div class="alert alert-info fade in">
-                                        <button class="close" data-dismiss="alert">&times;</button>
-                                        <i class="fa fa-info-circle"></i> Try to show/hide column visibility and drag the column to another position to reorder table columns.
-                                    </div>
                                     <table id="datatable-column-interactive" class="table table-sorting table-hover table-bordered datatable">
                                         <thead>
                                             <tr>

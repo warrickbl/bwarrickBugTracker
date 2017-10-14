@@ -55,7 +55,60 @@ namespace bwarrickBugTracker
                 }
             };
         }
+        public class PersonalEmail
+        {
+            private SmtpClient GetClient()
+            {
+                var GmailUsername = WebConfigurationManager.AppSettings["username"];
+                var GmailPassword = WebConfigurationManager.AppSettings["password"];
+                var host = WebConfigurationManager.AppSettings["host"];
+                int port = Convert.ToInt32(WebConfigurationManager.AppSettings["port"]);
+
+                return new SmtpClient()
+                {
+                    Host = host,
+                    Port = port,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(GmailUsername, GmailPassword)
+                };
+            }
+
+            public async Task SendAsync(MailMessage message)
+            {
+                using (var smtp = GetClient())
+                {
+                    try
+                    {
+                        await smtp.SendMailAsync(message);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        await Task.FromResult(0);
+                    }
+                };
+            }
+
+            public void Send(MailMessage message)
+            {
+                using (var smtp = GetClient())
+                {
+                    try
+                    {
+                        smtp.Send(message);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                };
+            }
+        }
     }
+
+   
 
     public class SmsService : IIdentityMessageService
     {

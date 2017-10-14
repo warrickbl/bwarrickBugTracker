@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using bwarrickBugTracker.Models.CodeFirst;
 using System.Collections.Generic;
+using bwarrickBugTracker.Models.Helpers;
 
 namespace bwarrickBugTracker.Models
 {
@@ -66,5 +67,6 @@ namespace bwarrickBugTracker.Models
         public DbSet<TicketPriority> TicketPriorities { get; set; }
         public DbSet<TicketStatus> TicketStatuses { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
+        public DbSet<NotificationEmail> NotificationEmails { get; set; }
     }
 }

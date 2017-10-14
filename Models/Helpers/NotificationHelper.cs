@@ -10,29 +10,52 @@ using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using static bwarrickBugTracker.EmailService;
 
-//namespace bwarrickBugTracker.Models.Helpers
-//{
-//    public class NotificationHelper
-//    {
-//        private ApplicationDbContext db = new ApplicationDbContext();
-//        [HttpPost]
-//        [AllowAnonymous]
-//        [ValidateAntiForgeryToken]
-//        public async Task<ActionResult> Notify(Ticket ticket, string userId)
-//        {
+namespace bwarrickBugTracker.Models.Helpers
+{
+    public class NotificationHelper
+    {
+        ApplicationDbContext db = new ApplicationDbContext();
+        NotificationEmail Notification = new NotificationEmail();
 
-//            var user = db.Tickets.Find(ticket.AssignToUserId).AssignToUser.Email;
-//                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-//                // Send an email with this link
-         
-//                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id}, protocol: Request.Url.Scheme);
-//                await UserManager.SendEmailAsync(user, "Ticket Assignment", "You have been assigned to a new ticket. Please visit your BugTracker at your earliest convenience." + callbackUrl + "\">here</a>");
-//                return RedirectToAction("ForgotPasswordConfirmation", "Account");
-            
+        public void Notify( int ticketId, string userId, string subject, string message, bool sendEmail, bool unRead)
+        {
+            var notification = new NotificationEmail
+            {
+                Subject = subject,
+                Message = message,
+                IsNew = true,
+                RecipientId = userId,
+                Sent = DateTimeOffset.UtcNow,
+                TicketId = ticketId,
+                UnRead = unRead,
+            };
 
-//            // If we got this far, something failed, redisplay form
-//            return View(model);
-//        }
-//    }
-//}
+            db.NotificationEmails.Add(notification);
+            db.SaveChanges();
+
+            if (sendEmail)
+            {
+                try
+                {
+                    var user = db.Users.Find(userId);
+
+                    var from = "BWarrickBugTracker<BugTrackerAlert@email.com>";
+                    var email = new MailMessage(from, user.Email)
+                    {
+                        Subject = subject,
+                        Body = message,
+                    };
+
+                    var svc = new PersonalEmail();
+                    svc.Send(email);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+    }
+}

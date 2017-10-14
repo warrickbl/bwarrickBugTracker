@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace bwarrickBugTracker.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : Universal
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         [Authorize]
@@ -43,10 +43,8 @@ namespace bwarrickBugTracker.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Landing()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
