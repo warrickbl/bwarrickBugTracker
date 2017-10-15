@@ -338,7 +338,7 @@ namespace bwarrickBugTracker.Controllers
                 helper.CommentAdd(ticketComment, user.Id);
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();               
-                return RedirectToAction("CommentNotification", "Tickets", new { id = ticketComment.TicketId });
+                return RedirectToAction("CommentNotification", "Tickets", new { id = ticketComment.Id });
             }
             
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketComment.AuthorId);
@@ -350,7 +350,7 @@ namespace bwarrickBugTracker.Controllers
         {
             var ticketComment = db.TicketComments.Find(id);
             NotificationHelper notificationHelper = new NotificationHelper();
-            notificationHelper.Notify(ticketComment.TicketId, ticketComment.Ticket.AssignToUser.Id, "Ticket Update Alert", "An comment has been added to " + ticketComment.Ticket.Title, true, true);
+            notificationHelper.Notify(ticketComment.TicketId, ticketComment.Ticket.AssignToUser.Id, "Ticket Update Alert", "A comment has been added to " + ticketComment.Ticket.Title, true, true);
             return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId });
         }
 
@@ -388,7 +388,7 @@ namespace bwarrickBugTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditComment([Bind(Include = "Id,AuthorId,Body,Created,Updated,TicketId")] TicketComment ticketComment)
-        {
+        {          
             ProjectAssignHelper assignhelper = new ProjectAssignHelper();
             Ticket ticket = ticketComment.Ticket;
             var user = db.Users.Find(User.Identity.GetUserId());
@@ -399,16 +399,25 @@ namespace bwarrickBugTracker.Controllers
                     db.Entry(ticketComment).State = EntityState.Modified;
                     ticketComment.Updated = DateTime.Now;
                     db.SaveChanges();
-                    return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId});
+                    return RedirectToAction("CommentEditNotification", "Tickets", new { id = ticketComment.Id });
                 }
-
+               
                 return View(ticket);
             }
             else
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
         }
+        public ActionResult CommentEditNotification(int? id)
+        {
+            var ticketComment = db.TicketComments.Find(id);
+            NotificationHelper notificationHelper = new NotificationHelper();
+            notificationHelper.Notify(ticketComment.TicketId, ticketComment.Ticket.AssignToUser.Id, "Ticket Update Alert", "A comment has been edited on your ticket: " + ticketComment.Ticket.Title, true, true);
+            return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId });
+        }
+
 
         // POST: TicketComments/Delete/5
         [HttpPost]
@@ -416,8 +425,6 @@ namespace bwarrickBugTracker.Controllers
         public ActionResult DeleteComment(int id)
         {
             TicketComment ticketComment = db.TicketComments.Find(id);
-            NotificationHelper notificationHelper = new NotificationHelper();
-            notificationHelper.Notify(ticketComment.TicketId, ticketComment.Ticket.AssignToUserId, "Ticket Comment Alert", "A comment has been deleted from " + ticketComment.Ticket.Title, true, true);
             db.TicketComments.Remove(ticketComment);
             db.SaveChanges();
             return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId});
@@ -451,10 +458,17 @@ namespace bwarrickBugTracker.Controllers
                 }
                 db.SaveChanges();
             }
-           
-            return RedirectToAction("Details", "Tickets", new { id = ticketAttachment.TicketId });
+
+            return RedirectToAction("AttachmentNotification", "Tickets", new { id = ticketAttachment.Id });
         }
 
+        public ActionResult AttachmentNotification(int? id)
+        {
+            var ticketAttachment = db.TicketAttachments.Find(id);
+            NotificationHelper notificationHelper = new NotificationHelper();
+            notificationHelper.Notify(ticketAttachment.TicketId, ticketAttachment.Ticket.AssignToUser.Id, "Ticket Update Alert", "An attachment has been added to " + ticketAttachment.Ticket.Title, true, true);
+            return RedirectToAction("Details", "Tickets", new { id = ticketAttachment.TicketId });
+        }
 
         // POST: Attachments/Delete/5
         [HttpPost]

@@ -13,7 +13,6 @@ namespace bwarrickBugTracker.Controllers
     [Authorize]
     public class HomeController : Universal
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         [Authorize]
         public ActionResult Index()
         {
