@@ -16,9 +16,12 @@ using static bwarrickBugTracker.Models.Helpers.NotificationHelper;
 using System.Net.Mail;
 using System.Configuration;
 using System.Threading.Tasks;
+using PagedList;
+using PagedList.Mvc;
 
 namespace bwarrickBugTracker.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class TicketsController : Universal
     {
@@ -31,7 +34,7 @@ namespace bwarrickBugTracker.Controllers
             ViewBag.UserTimeZone = db.Users.Find(User.Identity.GetUserId()).TimeZone;
             var user = db.Users.Find(User.Identity.GetUserId());
             var projects = db.Projects.Where(p => p.Users.Any(u => u.Id == user.Id)).ToList();
-            var tickets = db.Tickets.Include(t => t.AssignToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
+            var tickets = db.Tickets.Include(t => t.AssignToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType).Where(t => t.Active);
             if (User.IsInRole("Admin"))
             {
                 return View(tickets.ToList());
@@ -51,6 +54,28 @@ namespace bwarrickBugTracker.Controllers
             {
                 return View(tickets.Where(t => t.AssignToUserId == user.Id).ToList());
             }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult ArchivedTickets()
+        {
+            ViewBag.UserTimeZone = db.Users.Find(User.Identity.GetUserId()).TimeZone;
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var projects = db.Projects.Where(p => p.Users.Any(u => u.Id == user.Id)).ToList();
+            var tickets = db.Tickets.Include(t => t.AssignToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType).Where(t => t.Active == false);
+            if (User.IsInRole("Admin"))
+            {
+                return View(tickets.ToList());
+            }
+            else if (User.IsInRole("ProjectManager"))
+            {
+                foreach (var item in projects)
+                {
+                    return View(item.Tickets);
+                }
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -91,31 +116,21 @@ namespace bwarrickBugTracker.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //public ActionResult Notifications(int? id)
-        //{
-        //    Ticket ticket = db.Tickets.Find(id);
-        //    NotificationEmail notificationEmail = new NotificationEmail();
-        //    var notifications = db.NotificationEmails.Where(n => n.TicketId == ticket.Id);
-
-        //    foreach (var notification in notifications)
-        //    {
-        //        db.NotificationEmails.Remove(notification);
-        //    }
-        //    db.SaveChanges();
-        //    return RedirectToAction("Details", new { id = ticket.Id });
-        //}
-
         public ActionResult Notifications(int? id)
         {
             Ticket ticket = db.Tickets.Find(id);
             NotificationEmail notificationEmail = new NotificationEmail();
             var notifications = db.NotificationEmails.Where(n => n.TicketId == ticket.Id);
-
+            if (ticket == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             foreach (var notification in notifications)
             {
                 notification.UnRead = false;
             }
             db.SaveChanges();
+            
             return RedirectToAction("Details", new { id = ticket.Id });
         }
 
@@ -151,6 +166,7 @@ namespace bwarrickBugTracker.Controllers
 
             if (ModelState.IsValid)
             {
+                ticket.Active = true;
                 ticket.TicketStatusId = 1;
                 ticket.OwnerUserId = User.Identity.GetUserId();
                 ticket.Created = DateTimeOffset.UtcNow;
@@ -173,8 +189,7 @@ namespace bwarrickBugTracker.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
-            Ticket ticket = db.Tickets.Find(id);
-            
+            Ticket ticket = db.Tickets.Find(id); 
             ProjectAssignHelper assignhelper = new ProjectAssignHelper();
             var user = db.Users.Find(User.Identity.GetUserId());
             if (id == null)
@@ -182,7 +197,7 @@ namespace bwarrickBugTracker.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             
-            if (ticket == null)
+            if (ticket == null || ticket.Active == false)
             {
                 return HttpNotFound();
             }
@@ -251,40 +266,55 @@ namespace bwarrickBugTracker.Controllers
             if (ModelState.IsValid)
             {
                 var user = db.Users.Find(User.Identity.GetUserId());
-                ticket.Updated = DateTimeOffset.UtcNow;
-                HistoryHelper helper = new HistoryHelper();
-                NotificationHelper notificationHelper = new NotificationHelper();
-                db.Entry(ticket).State = EntityState.Modified;
+                ticket.Updated = DateTimeOffset.UtcNow;               
+                NotificationHelper notificationHelper = new NotificationHelper();              
                 TicketHistory ticketHistory = new TicketHistory();
                 Ticket oldTicket = db.Tickets.AsNoTracking().First(t => t.Id == ticket.Id);
-                if (oldTicket.AssignToUserId != ticket.AssignToUserId)
+                HistoryHelper helper = new HistoryHelper();
+                db.Entry(ticket).State = EntityState.Modified;
+                if (oldTicket.AssignToUserId != ticket.AssignToUserId || oldTicket.AssignToUserId == null)
                 {
                     helper.AssignChange(ticket, user.Id);
+                    notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "You have been assigned to a new ticket: " + ticket.Title, true, true);
+                    notificationHelper.Notify(ticket.Id, oldTicket.AssignToUserId, "Ticket Update Alert", "You have been removed from ticket: " + ticket.Title, true, true);
                 }
-                if (oldTicket.TicketType != ticket.TicketType)
+                if (oldTicket.TicketTypeId != ticket.TicketTypeId)
                 {
                     helper.TypeChange(ticket, user.Id);
+                    notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "An update has been made to the Ticket Type of ticket: " + ticket.Title, true, true);
                 }
                 if (oldTicket.Title != ticket.Title)
                 {
                     helper.TitleChange(ticket, user.Id);
+                    notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "An update has been made to the Title of ticket: " + ticket.Title, true, true);
                 }
                 if (oldTicket.Description != ticket.Description)
                 {
                     helper.DescriptionChange(ticket, user.Id);
+                    notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "An update has been made to the description of ticket: " + ticket.Title, true, true);
                 }
                 if (oldTicket.TicketPriorityId != ticket.TicketPriorityId)
                 {
                     helper.PriorityChange(ticket, user.Id);
+                    notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "An update has been made to the priority of ticket: " + ticket.Title, true, true);
                 }
-                if (oldTicket.TicketStatusId != ticket.TicketStatusId)
+                if (oldTicket.TicketStatusId != ticket.TicketStatusId && ticket.TicketStatusId == 4)
                 {
-                    helper.StatusChange(ticket, user.Id);
+                    ticket.Active = false;
+                    notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "Your ticket " + ticket.Title + " has been archived.", true, true);
                 }
+                if (oldTicket.TicketStatusId != ticket.TicketStatusId && ticket.TicketStatusId != 4)
+                {
+                    ticket.Active = true;
+                    helper.StatusChange(ticket, user.Id);
+                    notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "An update has been made to the status of ticket: " + ticket.Title, true, true);
+                }
+                if(oldTicket.TicketStatusId == ticket.TicketStatusId)
+                {
+                    ticket.Active = true;
+                }
+  
                 db.SaveChanges();
-
-                notificationHelper.Notify(ticket.Id, ticket.AssignToUserId, "Ticket Update Alert", "An update has been made to " + ticket.Title, true, true);
-
                 return RedirectToAction("Index");
             }
             ViewBag.AssignToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignToUserId);
@@ -340,11 +370,30 @@ namespace bwarrickBugTracker.Controllers
                 db.SaveChanges();               
                 return RedirectToAction("CommentNotification", "Tickets", new { id = ticketComment.Id });
             }
+            //if (!ModelState.IsValid)
+            //{
+            //    return RedirectToAction("HTMLError", "Tickets");
+            //}
             
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", ticketComment.AuthorId);
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComment.TicketId);
             return View(ticketComment);
         }
+
+        void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+            if (ex is HttpRequestValidationException)
+            {
+                Server.ClearError();
+                Response.Redirect("~/HTMLError.aspx", true);
+            }
+        }
+
+        //public ActionResult HTMLError()
+        //{
+        //    return View();
+        //}
 
         public ActionResult CommentNotification(int? id)
         {
@@ -446,13 +495,15 @@ namespace bwarrickBugTracker.Controllers
             if (ModelState.IsValid)
             {
                 if (attachment != null)
-                {            
+                {
+                    HistoryHelper helper = new HistoryHelper();
                     ticketAttachment.Created = DateTimeOffset.Now;
                     ticketAttachment.AuthorId = user.Id;
                     var filePath = "/Content/Attachments/";
                     var absPath = Server.MapPath("~" + filePath);
                     ticketAttachment.FileUrl = filePath + attachment.FileName;
                     attachment.SaveAs(Path.Combine(absPath, attachment.FileName));
+                    helper.AttachmentAdd(ticketAttachment, user.Id);
                     db.TicketAttachments.Add(ticketAttachment);
                     
                 }

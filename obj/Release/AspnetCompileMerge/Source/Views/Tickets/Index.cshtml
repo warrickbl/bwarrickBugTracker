@@ -4,17 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Tickets Index</h2>
 
 
 
 <!-- FEATURED DATA TABLE -->
 <div class="widget widget-table">
-    <div class="widget-header">
+    <div class="widget-header" style="background-color:#084951">
         <h3><i class="fa fa-table"></i>Tickets 
         @if (User.IsInRole("Submitter"))
         {
-            @Html.ActionLink("Create New", "Create")
+            <button class="btn btn-default btn-sm">@Html.ActionLink("Create New Ticket", "Create", "Tickets", null, new { @style = "color:white; text-decoration:none" })</button>
         }</h3>
     </div>
     <div class="widget-content">
@@ -64,15 +64,15 @@
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td>
-                            @Html.ToUserTime(item.Created, ViewBag.UserTimeZone as string)
+                            @Html.ToUserTime(item.Created.LocalDateTime, ViewBag.UserTimeZone as string)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Updated)
+                            @Html.DisplayFor(modelItem => item.Updated, "MM-dd-yyyy hh:mm")
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) @*|
-                                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                            <button style="background-color:gray;" class="btn btn-sm">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @style = "color:white; text-decoration:none;" })</button>
+                            <p></p>
+                            <button style="background-color:gray;" class="btn btn-sm">@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @style = "color:white; text-decoration:none;" })</button>
                         </td>
                     </tr>
                 }

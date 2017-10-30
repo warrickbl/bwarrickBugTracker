@@ -69,7 +69,11 @@ C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickbugtracker.csprojResolveAssemblyReference.cache
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickbugtracker.csproj.CoreCompileInputs.cache
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickBugTracker.dll
 C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickBugTracker.pdb
-C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\obj\Release\bwarrickbugtracker.csprojResolveAssemblyReference.cache
+C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\PagedList.dll
+C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\PagedList.Mvc.dll
+C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\PagedList.xml
+C:\Users\blwar\OneDrive\Documents\Visual Studio 2017\Projects\bwarrickBugTracker\bwarrickBugTracker\bin\PagedList.Mvc.xml

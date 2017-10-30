@@ -37,7 +37,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Created)
+                            @Html.DisplayFor(modelItem => item.Created.LocalDateTime)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Updated)
@@ -85,4 +85,3 @@
 </div>
 <!-- END FEATURED DATA TABLE -->
 
-@Html.ActionLink("My Projects", "Index", "Projects")

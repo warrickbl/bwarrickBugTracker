@@ -22,8 +22,16 @@ namespace bwarrickBugTracker.Models.Helpers
         {
             TicketHistory ticketHistory = new TicketHistory();
             Ticket oldTicket = db.Tickets.AsNoTracking().First(t => t.Id == ticket.Id);
-            ticketHistory.OldValue = oldTicket.AssignToUser.FullName;
-            ticketHistory.NewValue = db.Users.Find(ticket.AssignToUserId).FullName;
+            if(oldTicket.AssignToUserId != null)
+            { 
+                ticketHistory.OldValue = oldTicket.AssignToUser.FullName;
+                ticketHistory.NewValue = db.Users.Find(ticket.AssignToUserId).FullName;
+            }
+            else
+            {
+                ticketHistory.OldValue = null;
+                ticketHistory.NewValue = db.Users.Find(ticket.AssignToUserId).FullName;
+            }
             ticketHistory.TicketId = ticket.Id;
             ticketHistory.Property = "Assign To UserId";
             ticketHistory.Created = DateTimeOffset.UtcNow;
@@ -105,10 +113,23 @@ namespace bwarrickBugTracker.Models.Helpers
         public void CommentAdd(TicketComment ticketComment, string userId)
         {
             TicketHistory ticketHistory = new TicketHistory();        
-            ticketHistory.OldValue = null;
+            ticketHistory.OldValue = "No Comment";
             ticketHistory.NewValue = ticketComment.Id.ToString();
             ticketHistory.TicketId = ticketComment.TicketId;
             ticketHistory.Property = "Comment added";
+            ticketHistory.Created = DateTimeOffset.UtcNow;
+            ticketHistory.AuthorId = userId;
+            db.TicketHistories.Add(ticketHistory);
+            db.SaveChanges();
+        }
+
+        public void AttachmentAdd(TicketAttachment ticketAttachment, string userId)
+        {
+            TicketHistory ticketHistory = new TicketHistory();
+            ticketHistory.OldValue = "No Attachment";
+            ticketHistory.NewValue = ticketAttachment.Id.ToString();
+            ticketHistory.TicketId = ticketAttachment.TicketId;
+            ticketHistory.Property = "Attachment added";
             ticketHistory.Created = DateTimeOffset.UtcNow;
             ticketHistory.AuthorId = userId;
             db.TicketHistories.Add(ticketHistory);

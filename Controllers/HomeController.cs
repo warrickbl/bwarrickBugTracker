@@ -10,7 +10,8 @@ using System.Web.Mvc;
 
 namespace bwarrickBugTracker.Controllers
 {
-    [Authorize]
+    [RequireHttps]
+ 
     public class HomeController : Universal
     {
         [Authorize]
@@ -34,7 +35,7 @@ namespace bwarrickBugTracker.Controllers
         {
             return View(db.Projects.ToList());
         }
-
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -43,6 +44,16 @@ namespace bwarrickBugTracker.Controllers
         }
 
         public ActionResult Landing()
+        {
+            return View();
+        }
+
+        public ActionResult HTMLError()
+        {
+            return View();
+        }
+
+        public ActionResult Error()
         {
             return View();
         }

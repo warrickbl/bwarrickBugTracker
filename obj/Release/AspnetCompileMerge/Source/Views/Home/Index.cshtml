@@ -80,403 +80,473 @@
                         </div>
                     </div>
                     <!-- END WIDGET REMINDER -->*@
-                @*</div>
-            </div>*@
+            @*</div>
+                </div>*@
             <!-- WIDGET MAIN CHART WITH TABBED CONTENT -->
             @*<div class="widget">
-                <div class="widget-header">
-                    <h3><i class="fa fa-bar-chart-o"></i> Sales Stat</h3> <em>- Visits, Sales and Traffic Source</em>
-                    <button type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
-                    <div class="btn-group widget-header-toolbar">
-                        <a href="#" id="tour-focus" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                        <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                        <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                    <div class="widget-header">
+                        <h3><i class="fa fa-bar-chart-o"></i> Sales Stat</h3> <em>- Visits, Sales and Traffic Source</em>
+                        <button type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+                        <div class="btn-group widget-header-toolbar">
+                            <a href="#" id="tour-focus" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                            <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="widget-content">
-                    <!-- chart tab nav -->
-                    <div class="chart-nav">
-                        <strong>Select period: </strong>
-                        <ul id="sales-stat-tab">
-                            <li class="active"><a href="#week">Weekly</a></li>
-                            <li><a href="#month">Monthly</a></li>
-                            <li><a href="#year">Annually</a></li>
-                        </ul>
-                    </div>
-                    <!-- end chart tab nav -->
-                    <!-- chart placeholder-->
-                    <div class="chart-content">
-                        <div class="demo-flot-chart sales-chart"></div>
-                    </div>
-                    <!-- end chart placeholder-->
-                    <hr class="separator">
-                    <!-- secondary stat -->
-                    <div class="secondary-stat">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div id="secondary-stat-item1" class="secondary-stat-item big-number-stat clearfix">
-                                    <div class="data">
-                                        <span class="col-left big-number">260</span>
-                                        <span class="col-right"><em>New Orders</em><em>3% <i class="fa fa-caret-down"></i></em></span>
+                    <div class="widget-content">
+                        <!-- chart tab nav -->
+                        <div class="chart-nav">
+                            <strong>Select period: </strong>
+                            <ul id="sales-stat-tab">
+                                <li class="active"><a href="#week">Weekly</a></li>
+                                <li><a href="#month">Monthly</a></li>
+                                <li><a href="#year">Annually</a></li>
+                            </ul>
+                        </div>
+                        <!-- end chart tab nav -->
+                        <!-- chart placeholder-->
+                        <div class="chart-content">
+                            <div class="demo-flot-chart sales-chart"></div>
+                        </div>
+                        <!-- end chart placeholder-->
+                        <hr class="separator">
+                        <!-- secondary stat -->
+                        <div class="secondary-stat">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div id="secondary-stat-item1" class="secondary-stat-item big-number-stat clearfix">
+                                        <div class="data">
+                                            <span class="col-left big-number">260</span>
+                                            <span class="col-right"><em>New Orders</em><em>3% <i class="fa fa-caret-down"></i></em></span>
+                                        </div>
+                                        <div id="spark-stat1" class="inlinesparkline">Loading...</div>
                                     </div>
-                                    <div id="spark-stat1" class="inlinesparkline">Loading...</div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div id="secondary-stat-item2" class="secondary-stat-item big-number-stat clearfix">
-                                    <p class="data">
-                                        <span class="col-left big-number">$23,000</span>
-                                        <span class="col-right"><em>Revenue</em><em>5% <i class="fa fa-caret-up"></i></em></span>
-                                    </p>
-                                    <div id="spark-stat2" class="inlinesparkline">Loading...</div>
+                                <div class="col-lg-4">
+                                    <div id="secondary-stat-item2" class="secondary-stat-item big-number-stat clearfix">
+                                        <p class="data">
+                                            <span class="col-left big-number">$23,000</span>
+                                            <span class="col-right"><em>Revenue</em><em>5% <i class="fa fa-caret-up"></i></em></span>
+                                        </p>
+                                        <div id="spark-stat2" class="inlinesparkline">Loading...</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div id="secondary-stat-item3" class="secondary-stat-item big-number-stat clearfix">
-                                    <p class="data">
-                                        <span class="col-left big-number">$47,000</span>
-                                        <span class="col-right"><em>Total Sales</em><em>7% <i class="fa fa-caret-up"></i></em></span>
-                                    </p>
-                                    <div id="spark-stat3" class="inlinesparkline">Loading...</div>
+                                <div class="col-lg-4">
+                                    <div id="secondary-stat-item3" class="secondary-stat-item big-number-stat clearfix">
+                                        <p class="data">
+                                            <span class="col-left big-number">$47,000</span>
+                                            <span class="col-right"><em>Total Sales</em><em>7% <i class="fa fa-caret-up"></i></em></span>
+                                        </p>
+                                        <div id="spark-stat3" class="inlinesparkline">Loading...</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- end secondary stat -->
                     </div>
-                    <!-- end secondary stat -->
-                </div>
-            </div>*@
+                </div>*@
             <!-- END WIDGET MAIN CHART WITH TABBED CONTENT -->
             @*<div class="row">
-                <div class="col-md-6">
-                    <!-- WIDGET TABLE -->
-                    <div class="widget widget-table">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-desktop"></i> Browser &amp; OS</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                                <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                    <div class="col-md-6">
+                        <!-- WIDGET TABLE -->
+                        <div class="widget widget-table">
+                            <div class="widget-header">
+                                <h3><i class="fa fa-desktop"></i> Browser &amp; OS</h3>
+                                <div class="btn-group widget-header-toolbar">
+                                    <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                                </div>
+                                <div class="btn-group widget-header-toolbar">
+                                    <div class="control-inline toolbar-item-group">
+                                        <span class="control-title">New Visits:</span>
+                                        <div class="label label-success"><i class="fa fa-caret-up"></i> 3.5%</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="btn-group widget-header-toolbar">
-                                <div class="control-inline toolbar-item-group">
-                                    <span class="control-title">New Visits:</span>
-                                    <div class="label label-success"><i class="fa fa-caret-up"></i> 3.5%</div>
+                            <div class="widget-content">
+                                <table id="visit-stat-table" class="table table-sorting table-striped table-hover datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>Browser</th>
+                                            <th>Operating System</th>
+                                            <th>Visits</th>
+                                            <th>New Visits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Chrome</td>
+                                            <td>Macintosh</td>
+                                            <td>360</td>
+                                            <td>82.78%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chrome</td>
+                                            <td>Windows</td>
+                                            <td>582</td>
+                                            <td>87.24%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chrome</td>
+                                            <td>Linux</td>
+                                            <td>172</td>
+                                            <td>45.21%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chrome</td>
+                                            <td>iOS</td>
+                                            <td>86</td>
+                                            <td>35.23%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Firefox</td>
+                                            <td>Windows</td>
+                                            <td>280</td>
+                                            <td>63.12%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Firefox</td>
+                                            <td>Android</td>
+                                            <td>236</td>
+                                            <td>58.02%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Internet Explorer</td>
+                                            <td>Windows</td>
+                                            <td>145</td>
+                                            <td>45.23%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Safari</td>
+                                            <td>Macintosh</td>
+                                            <td>103</td>
+                                            <td>22.12%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Safari</td>
+                                            <td>iOS</td>
+                                            <td>302</td>
+                                            <td>56.98%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Opera</td>
+                                            <td>Windows</td>
+                                            <td>328</td>
+                                            <td>67.12%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Opera</td>
+                                            <td>Macintosh</td>
+                                            <td>22</td>
+                                            <td>87.21%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chrome</td>
+                                            <td>iOS</td>
+                                            <td>45</td>
+                                            <td>23.21%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Firefox</td>
+                                            <td>Windows</td>
+                                            <td>67</td>
+                                            <td>27.11%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END WIDGET TABLE -->
+                        <!-- WIDGET DONUT AND PIE CHART -->
+                        <div class="widget">
+                            <div class="widget-header">
+                                <h3><i class="fa fa-truck"></i> Traffic Source</h3> <em>- Visits based on source of traffic</em>
+                                <div class="btn-group widget-header-toolbar">
+                                    <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content">
+                                <div class="demo-flot-chart" id="demo-donut-chart"></div>
+                                <div class="panel panel-default panel-pie-chart">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Last Week Visits</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul class="list-inline">
+                                            <li>
+                                                <span id="mini-pie-chart1" class="mini-pie-chart"></span>
+                                                <div>Mon</div>
+                                            </li>
+                                            <li>
+                                                <span id="mini-pie-chart2" class="mini-pie-chart"></span>
+                                                <div>Tue</div>
+                                            </li>
+                                            <li>
+                                                <span id="mini-pie-chart3" class="mini-pie-chart"></span>
+                                                <div>Wed</div>
+                                            </li>
+                                            <li>
+                                                <span id="mini-pie-chart4" class="mini-pie-chart"></span>
+                                                <div>Thu</div>
+                                            </li>
+                                            <li>
+                                                <span id="mini-pie-chart5" class="mini-pie-chart"></span>
+                                                <div>Fri</div>
+                                            </li>
+                                            <li>
+                                                <span id="mini-pie-chart6" class="mini-pie-chart"></span>
+                                                <div>Sat</div>
+                                            </li>
+                                            <li>
+                                                <span id="mini-pie-chart7" class="mini-pie-chart"></span>
+                                                <div>Sun</div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="widget-content">
-                            <table id="visit-stat-table" class="table table-sorting table-striped table-hover datatable">
-                                <thead>
-                                    <tr>
-                                        <th>Browser</th>
-                                        <th>Operating System</th>
-                                        <th>Visits</th>
-                                        <th>New Visits</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Chrome</td>
-                                        <td>Macintosh</td>
-                                        <td>360</td>
-                                        <td>82.78%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chrome</td>
-                                        <td>Windows</td>
-                                        <td>582</td>
-                                        <td>87.24%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chrome</td>
-                                        <td>Linux</td>
-                                        <td>172</td>
-                                        <td>45.21%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chrome</td>
-                                        <td>iOS</td>
-                                        <td>86</td>
-                                        <td>35.23%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Firefox</td>
-                                        <td>Windows</td>
-                                        <td>280</td>
-                                        <td>63.12%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Firefox</td>
-                                        <td>Android</td>
-                                        <td>236</td>
-                                        <td>58.02%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Internet Explorer</td>
-                                        <td>Windows</td>
-                                        <td>145</td>
-                                        <td>45.23%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Safari</td>
-                                        <td>Macintosh</td>
-                                        <td>103</td>
-                                        <td>22.12%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Safari</td>
-                                        <td>iOS</td>
-                                        <td>302</td>
-                                        <td>56.98%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Opera</td>
-                                        <td>Windows</td>
-                                        <td>328</td>
-                                        <td>67.12%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Opera</td>
-                                        <td>Macintosh</td>
-                                        <td>22</td>
-                                        <td>87.21%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chrome</td>
-                                        <td>iOS</td>
-                                        <td>45</td>
-                                        <td>23.21%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Firefox</td>
-                                        <td>Windows</td>
-                                        <td>67</td>
-                                        <td>27.11%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <!-- END WIDGET DONUT AND PIE CHART -->
                     </div>
-                    <!-- END WIDGET TABLE -->
-                    <!-- WIDGET DONUT AND PIE CHART -->
-                    <div class="widget">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-truck"></i> Traffic Source</h3> <em>- Visits based on source of traffic</em>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                                <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
-                            </div>
-                        </div>
-                        <div class="widget-content">
-                            <div class="demo-flot-chart" id="demo-donut-chart"></div>
-                            <div class="panel panel-default panel-pie-chart">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Last Week Visits</h3>
+                    <div class="col-md-6">
+                        <!-- WIDGET SALES MAP -->
+                        <div class="widget">
+                            <div class="widget-header">
+                                <h3><i class="fa fa-globe"></i> US Sales Map</h3> <em> - US map with plottable latitude and longitude</em>
+                                <div class="btn-group widget-header-toolbar">
+                                    <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
                                 </div>
-                                <div class="panel-body">
-                                    <ul class="list-inline">
-                                        <li>
-                                            <span id="mini-pie-chart1" class="mini-pie-chart"></span>
-                                            <div>Mon</div>
-                                        </li>
-                                        <li>
-                                            <span id="mini-pie-chart2" class="mini-pie-chart"></span>
-                                            <div>Tue</div>
-                                        </li>
-                                        <li>
-                                            <span id="mini-pie-chart3" class="mini-pie-chart"></span>
-                                            <div>Wed</div>
-                                        </li>
-                                        <li>
-                                            <span id="mini-pie-chart4" class="mini-pie-chart"></span>
-                                            <div>Thu</div>
-                                        </li>
-                                        <li>
-                                            <span id="mini-pie-chart5" class="mini-pie-chart"></span>
-                                            <div>Fri</div>
-                                        </li>
-                                        <li>
-                                            <span id="mini-pie-chart6" class="mini-pie-chart"></span>
-                                            <div>Sat</div>
-                                        </li>
-                                        <li>
-                                            <span id="mini-pie-chart7" class="mini-pie-chart"></span>
-                                            <div>Sun</div>
-                                        </li>
-                                    </ul>
+                            </div>
+                            <div class="widget-content">
+                                <div class="map-custom-width data-us-map">
+                                    <div class="map"></div>
+                                    <div class="plotLegend"></div>
                                 </div>
                             </div>
                         </div>
+                        <!-- END WIDGET SALES MAP -->
+                        <!-- WIDGET INLINE SPARKLINE -->
+                        <div class="widget widget-sparkline">
+                            <div class="widget-header">
+                                <h3><i class="fa fa-bar-chart-o"></i> Visits Stat</h3> <em>- Sparkline Charts With Random Data</em>
+                                <div class="btn-group widget-header-toolbar">
+                                    <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content">
+                                <div class="row first">
+                                    <div class="col-md-6">
+                                        <div class="sparkline-stat-item">
+                                            <div class="info"><span>Visits</span><strong>1,363</strong></div>
+                                            <span id="sparkline1" class="inlinesparkline">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sparkline-stat-item">
+                                            <div class="info"><span>Unique Visitors</span><strong>1,221</strong></div>
+                                            <span id="sparkline2" class="inlinesparkline">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sparkline-stat-item last">
+                                            <div class="info"><span>Page Views</span><strong>2,300</strong></div>
+                                            <span id="sparkline3" class="inlinesparkline">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sparkline-stat-item">
+                                            <div class="info"><span>Pages/Visit</span><strong>1.19</strong></div>
+                                            <span id="sparkline4" class="inlinesparkline">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sparkline-stat-item">
+                                            <div class="info"><span>Avg. Visit Duration</span><strong>00:00:30</strong></div>
+                                            <span id="sparkline5" class="inlinesparkline">Loading...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sparkline-stat-item last">
+                                            <div class="info"><span>% New Visits</span><strong>28.35%</strong></div>
+                                            <span id="sparkline6" class="inlinesparkline">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END WIDGET INLINE SPARKLINE -->
                     </div>
-                    <!-- END WIDGET DONUT AND PIE CHART -->
-                </div>
-                <div class="col-md-6">
-                    <!-- WIDGET SALES MAP -->
-                    <div class="widget">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-globe"></i> US Sales Map</h3> <em> - US map with plottable latitude and longitude</em>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                                <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
-                            </div>
-                        </div>
-                        <div class="widget-content">
-                            <div class="map-custom-width data-us-map">
-                                <div class="map"></div>
-                                <div class="plotLegend"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END WIDGET SALES MAP -->
-                    <!-- WIDGET INLINE SPARKLINE -->
-                    <div class="widget widget-sparkline">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-bar-chart-o"></i> Visits Stat</h3> <em>- Sparkline Charts With Random Data</em>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                                <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
-                            </div>
-                        </div>
-                        <div class="widget-content">
-                            <div class="row first">
-                                <div class="col-md-6">
-                                    <div class="sparkline-stat-item">
-                                        <div class="info"><span>Visits</span><strong>1,363</strong></div>
-                                        <span id="sparkline1" class="inlinesparkline">Loading...</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="sparkline-stat-item">
-                                        <div class="info"><span>Unique Visitors</span><strong>1,221</strong></div>
-                                        <span id="sparkline2" class="inlinesparkline">Loading...</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="sparkline-stat-item last">
-                                        <div class="info"><span>Page Views</span><strong>2,300</strong></div>
-                                        <span id="sparkline3" class="inlinesparkline">Loading...</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="sparkline-stat-item">
-                                        <div class="info"><span>Pages/Visit</span><strong>1.19</strong></div>
-                                        <span id="sparkline4" class="inlinesparkline">Loading...</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="sparkline-stat-item">
-                                        <div class="info"><span>Avg. Visit Duration</span><strong>00:00:30</strong></div>
-                                        <span id="sparkline5" class="inlinesparkline">Loading...</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="sparkline-stat-item last">
-                                        <div class="info"><span>% New Visits</span><strong>28.35%</strong></div>
-                                        <span id="sparkline6" class="inlinesparkline">Loading...</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END WIDGET INLINE SPARKLINE -->
-                </div>
-            </div>*@
+                </div>*@
             <div class="row">
                 <div class="col-md-4">
                     <!-- WIDGET TASKS -->
                     <div class="widget">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-tasks"></i> My Projects</h3> <em>- Summary of Tasks</em>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                                <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
-                            </div>
+                        <div class="widget-header" style="background-color:#084951">
+                            <h3><i class="fa fa-tasks"></i> My Projects</h3> <em>- Projects you have been assigned to</em>
+                            @*<div class="btn-group widget-header-toolbar  table-responsive">
+                                    <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                                </div>*@
                         </div>
                         <div class="widget-content">
                             <ul class="task-list">
-                                @foreach (var item in Model){ 
-                                <li>
-                                    <p>@Html.DisplayFor(ModelItem => item.Title) <span class="label label-danger">23%</span></p>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width:23%">
-                                            <span class="sr-only">23% Complete</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                    }
-                                @*<li>
-                                    <p>Load &amp; Stress Test <span class="label label-success">80%</span></p>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Data Duplication Check <span class="label label-success">100%</span></p>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                            <span class="sr-only">Success</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Server Check <span class="label label-warning">45%</span></p>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                                            <span class="sr-only">45% Complete</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Mobile App Development <span class="label label-danger">10%</span></p>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
-                                            <span class="sr-only">10% Complete</span>
-                                        </div>
-                                    </div>
-                                </li>*@
+                                @foreach (var item in Model.Where(item => item.Active == true))
+                                {
+                                    <li>
+                                        @if (item.Tickets.Count <= 5)
+                                        {
+                                            <p>@Html.DisplayFor(ModelItem => item.Title) <span class="label label-success">@Html.DisplayFor(ModelItem => item.Tickets.Count) Tickets</span></p>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:@item.Tickets.Count%">
+                                                    <span class="sr-only">23% Complete</span>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (item.Tickets.Count > 5 && item.Tickets.Count <= 10)
+                                        {
+                                            <p>@Html.DisplayFor(ModelItem => item.Title) <span class="label label-warning">@Html.DisplayFor(ModelItem => item.Tickets.Count) Tickets</span></p>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:@item.Tickets.Count%">
+                                                    <span class="sr-only">23% Complete</span>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (item.Tickets.Count > 10)
+                                        {
+                                            <p>@Html.DisplayFor(ModelItem => item.Title) <span class="label label-danger">@Html.DisplayFor(ModelItem => item.Tickets.Count) Tickets</span></p>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:@item.Tickets.Count%">
+                                                    <span class="sr-only">23% Complete</span>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
                     <!-- END WIDGET TASKS -->
                 </div>
-                @*<div class="col-md-8">
+                <div class="col-md-8">
                     <!-- WIDGET REAL-TIME CHART -->
-                    <div class="widget real-time-chart">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-cogs"></i> CPU Load</h3> <em>- Realtime chart</em>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                                <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                    {
+                        <div class="widget">
+                            <div class="widget-header" style="background-color:#084951">
+                                <h3><i class="fa fa-tasks"></i> Archivable Projects</h3> <em>- Projects ready to be archived</em>
+                                <div class="btn-group widget-header-toolbar">
+                                    <a href="#" title="Focus" class="btn-borderless btn-focus" style="color:white"><i class="fa fa-eye"></i></a>
+                                    <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand" style="color:white"><i class="fa fa-chevron-up"></i></a>
+                                    <a href="#" title="Remove" class="btn-borderless btn-remove" style="color:white"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content">
+                                <ul class="task-list">
+
+                                    @foreach (var item in Model.Where(item => item.Active == true))
+                                    {
+                                        if (item.Tickets.Where(t => t.Active == true).ToList().Count == 0)
+                                        {
+                                            <li>
+                                                <div id="detailsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content" style="padding:50px; text-align:left;">
+                                                            <div class="modal-header" style="border-style:none;">
+                                                                <button type="button" onclick="Clear()" class="close" style="font-size:45px" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                                <div class="modal-title" style="border-style:none;">
+                                                                    <h2>Details</h2>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="basic-info">
+                                                                        <h3><i class="fa fa-square"></i> Basic Information</h3>
+                                                                        <p class="data-row">
+                                                                            <span class="data-name">Ticket Name</span>
+                                                                            <span class="data-value">@Html.DisplayFor(modelItem => item.Title)</span>
+                                                                        </p>
+                                                                        <p class="data-row">
+                                                                            <span class="data-name">Description</span>
+                                                                            <span class="data-value">@Html.DisplayFor(modelItem => item.Description)</span>
+                                                                        </p>
+                                                                        <p class="data-row">
+                                                                            <span class="data-name">Created</span>
+                                                                            <span class="data-value">@Html.DisplayFor(modelItem => item.Created.LocalDateTime)</span>
+                                                                        </p>
+                                                                        <p class="data-row">
+                                                                            <span class="data-name">Updated</span>
+                                                                            <span class="data-value"> @Html.DisplayFor(modelItem => item.Updated)</span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="archiveModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content" style="padding:50px; text-align:left;">
+                                                            <div class="modal-header" style="border-style:none;">
+                                                                <button type="button" onclick="Clear()" class="close" style="font-size:45px" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                                <div class="modal-title" style="border-style:none;">
+                                                                    <h2 style="text-align:center">Are you sure you want to Archive @item.Title ?</h2>
+                                                                </div>
+                                                                <div class="modal-body" style="text-align:center;">
+                                                                    <button class="btn btn-default">@Html.ActionLink("Archive", "Archive", "Projects", new { id = item.Id }, new { @style = "color:white; text-decoration:none;" })</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p>@Html.DisplayFor(ModelItem => item.Title) <span class="label"><button class="btn btn-default;" style="background-color:gray" data-toggle="modal" data-target="#detailsModal">Details</button> | <button class="btn btn-default;" style="background-color:gray;" data-toggle="modal" ; data-target="#archiveModal">Archive</button></span></p>
+                                                <hr align="center" width="100%">
+                                            </li>
+                                        }
+                                        if (item == null)
+                                        {
+                                            <li>
+                                                <p>You have no Archivable Projects at this time</p>
+                                                <hr align="center" width="100%">
+                                            </li>
+                                        }
+
+
+                                    }
+                                    <li>
+                                        <span class="label">
+                                            <button style="background-color:gray; float:right;" class="btn">@Html.ActionLink("View All Archived Projects", "ArchivedProjects", "Projects", null, new { @style = "color:white; text-decoration:none;" })</button>
+                                        </span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="widget-content">
-                            <div class="demo-flot-chart" id="demo-real-time-chart"></div>
-                        </div>
-                    </div>
+                    }
+                   
                     <!-- END WIDGET REAL-TIME CHART -->
-                </div>*@
+                </div>
             </div>
             <!-- WIDGET TICKET TABLE -->
-            
             <div class="widget widget-table">
-                <div class="widget-header">
+                <div class="widget-header" style="background-color:#084951">
                     <h3><i class="fa fa-group"></i> Support Tickets</h3> <em>- List of Support Tickets</em>
                     <div class="btn-group widget-header-toolbar">
-                        <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                        <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                        <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                        <a href="#" title="Focus" class="btn-borderless btn-focus" style="color:white"><i class="fa fa-eye"></i></a>
+                        <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand" style="color:white"><i class="fa fa-chevron-up"></i></a>
+                        <a href="#" title="Remove" class="btn-borderless btn-remove" style="color:white"><i class="fa fa-times"></i></a>
                     </div>
                     <div class="widget-header-toolbar">
-                        <div class="label label-danger"><i class="fa fa-warning"></i> 2 Critical Messages</div>
+                        <div class="label label-danger"><i class="fa fa-warning"></i>@Model.SelectMany(i => i.Tickets).Where(t => t.TicketPriorityId == 4 && t.Active == true).Count()</div>
                     </div>
+
                 </div>
+
                 <div class="widget-content">
                     <table id="ticket-table" class="table table-sorting">
                         <thead>
@@ -497,7 +567,7 @@
                         <tbody>
                             @if (User.IsInRole("Admin"))
                             {
-                                foreach (var item in Model.SelectMany(i => i.Tickets))
+                                foreach (var item in Model.SelectMany(i => i.Tickets).Where(item => item.Active == true))
                                 {
                                     <tr>
                                         <td>
@@ -525,7 +595,7 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Created)
+                                            @Html.DisplayFor(modelItem => item.Created.LocalDateTime)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Updated)
@@ -533,7 +603,7 @@
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", "Tickets", new { id = item.Id }, null) |
                                             @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id }, null) @*|
-                                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                                                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
                                         </td>
                                     </tr>
                                 }
@@ -541,7 +611,7 @@
 
                             else if (User.IsInRole("ProjectManager"))
                             {
-                                foreach (var item in Model.Where(i => i.Users.Any(u => u.Id == user)).SelectMany(i => i.Tickets))
+                                foreach (var item in Model.Where(i => i.Users.Any(u => u.Id == user)).SelectMany(i => i.Tickets).Where(item => item.Active == true))
                                 {
                                     <tr>
                                         <td>
@@ -569,7 +639,7 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Created)
+                                            @Html.DisplayFor(modelItem => item.Created.LocalDateTime)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Updated)
@@ -577,7 +647,7 @@
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", "Tickets", new { id = item.Id }, null) |
                                             @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id }, null) @*|
-                                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                                                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
                                         </td>
                                     </tr>
                                 }
@@ -585,7 +655,7 @@
 
                             else if (User.IsInRole("Developer"))
                             {
-                                foreach (var item in Model.SelectMany(i => i.Tickets).Where(t => t.AssignToUserId == user))
+                                foreach (var item in Model.SelectMany(i => i.Tickets).Where(t => t.AssignToUserId == user && t.Active == true))
                                 {
                                     <tr>
                                         <td>
@@ -613,7 +683,7 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Created)
+                                            @Html.DisplayFor(modelItem => item.Created.LocalDateTime)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Updated)
@@ -621,7 +691,7 @@
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", "Tickets", new { id = item.Id }, null) |
                                             @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id }, null) @*|
-                                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                                                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
                                         </td>
                                     </tr>
                                 }
@@ -629,7 +699,7 @@
 
                             else if (User.IsInRole("Submitter"))
                             {
-                                foreach (var item in Model.SelectMany(i => i.Tickets).Where(t => t.OwnerUserId == user))
+                                foreach (var item in Model.SelectMany(i => i.Tickets).Where(t => t.OwnerUserId == user && t.Active == true))
                                 {
                                     <tr>
                                         <td>
@@ -657,7 +727,7 @@
                                             @Html.DisplayFor(modelItem => item.Description)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Created)
+                                            @Html.DisplayFor(modelItem => item.Created.LocalDateTime)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Updated)
@@ -665,7 +735,7 @@
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", "Tickets", new { id = item.Id }, null) |
                                             @Html.ActionLink("Details", "Details", "Tickets", new { id = item.Id }, null) @*|
-                                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                                                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
                                         </td>
                                     </tr>
                                 }

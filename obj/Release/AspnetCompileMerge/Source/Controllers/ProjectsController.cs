@@ -13,10 +13,10 @@ using Microsoft.AspNet.Identity;
 
 namespace bwarrickBugTracker.Controllers
 {
+    [RequireHttps]
     [Authorize]
-    public class ProjectsController : Controller
+    public class ProjectsController : Universal
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
         [Authorize]
@@ -32,7 +32,13 @@ namespace bwarrickBugTracker.Controllers
         [Authorize(Roles = ("Admin, ProjectManager"))]
         public ActionResult AllProjects(string userId)
         {
-            return View(db.Projects.ToList());
+            return View(db.Projects.Where(p => p.Active == true).ToList());
+        }
+
+        [Authorize(Roles = ("Admin, ProjectManager"))]
+        public ActionResult ArchivedProjects(string userId)
+        {
+            return View(db.Projects.Where(p => p.Active == false).ToList());
         }
 
         // GET: Projects/Details/5
@@ -77,7 +83,7 @@ namespace bwarrickBugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                project.Active = true;
                 var user = db.Users.Find(User.Identity.GetUserId());
                 project.AuthorId = user.FullName;
                 project.Created = DateTimeOffset.UtcNow;
@@ -89,6 +95,39 @@ namespace bwarrickBugTracker.Controllers
             return View(project);
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
+        public ActionResult Archive(int? id)
+        {
+            Project project = db.Projects.Find(id);
+            if (project == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                project.Active = false;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize(Roles = "Admin, ProjectManager")]
+        public ActionResult ReActivate(int? id)
+        {
+            Project project = db.Projects.Find(id);
+            if (project == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                project.Active = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", "Projects");
+        }
+
+
         // GET: Projects/Edit/5
         [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult Edit(int? id)
@@ -98,11 +137,13 @@ namespace bwarrickBugTracker.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Project project = db.Projects.Find(id);
-            if (project == null)
+            if (project == null || project.Active == false)
             {
                 return HttpNotFound();
             }
+
             return View(project);
+          
         }
 
         // POST: Projects/Edit/5
@@ -146,6 +187,19 @@ namespace bwarrickBugTracker.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Project project = db.Projects.Find(id);
+            var tickets = db.Tickets.Where(t => t.ProjectId == project.Id).ToList();
+            foreach (var ticket in tickets)
+            {
+                var notifications = db.NotificationEmails.Where(n => n.TicketId == ticket.Id).ToList();
+                foreach (var notification in notifications)
+                {
+                    db.NotificationEmails.Remove(notification);
+                    db.SaveChanges();
+                }
+
+                db.Tickets.Remove(ticket);
+                db.SaveChanges();
+            }
             db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -10,6 +10,7 @@ using bwarrickBugTracker.Models;
 
 namespace bwarrickBugTracker.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {
@@ -32,9 +33,9 @@ namespace bwarrickBugTracker.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -54,26 +55,35 @@ namespace bwarrickBugTracker.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : message == ManageMessageId.ChangeNameSuccess ? "Your name has been updated"
-                : "";
-
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            ApplicationDbContext db = new ApplicationDbContext();
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if (user.Email == "admin@demo.com" || user.Email == "submitter@demo.com" || user.Email == "projectmanager@demo.com" || user.Email == "developer@demo.com")
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
-            return View(model);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.StatusMessage =
+                    message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                    : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                    : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+                    : message == ManageMessageId.Error ? "An error has occurred."
+                    : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+                    : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                    : message == ManageMessageId.ChangeNameSuccess ? "Your name has been updated"
+                    : "";
+
+                var userId = User.Identity.GetUserId();
+                var model = new IndexViewModel
+                {
+                    HasPassword = HasPassword(),
+                    PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                    Logins = await UserManager.GetLoginsAsync(userId),
+                    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                };
+                return View(model);
+            }
         }
 
         //
@@ -218,7 +228,16 @@ namespace bwarrickBugTracker.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if (user.Email == "admin@demo.com" || user.Email == "submitter@demo.com" || user.Email == "projectmanager@demo.com" || user.Email == "developer@demo.com")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         //
@@ -227,28 +246,49 @@ namespace bwarrickBugTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            ApplicationDbContext db = new ApplicationDbContext();
+            var username = db.Users.Find(User.Identity.GetUserId());
+            if (username.Email == "admin@demo.com" || username.Email == "submitter@demo.com" || username.Email == "projectmanager@demo.com" || username.Email == "developer@demo.com")
             {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                }
+                AddErrors(result);
                 return View(model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-            }
-            AddErrors(result);
-            return View(model);
+
         }
 
         // GET: /Manage/ChangeName
         public ActionResult ChangeName()
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var username = db.Users.Find(User.Identity.GetUserId());
+            if (username.Email == "admin@demo.com" || username.Email == "submitter@demo.com" || username.Email == "projectmanager@demo.com" || username.Email == "developer@demo.com")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         //
@@ -257,27 +297,36 @@ namespace bwarrickBugTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangeName(ChangeNameViewModel model)
         {
-           
-            if (!ModelState.IsValid)
+            ApplicationDbContext db = new ApplicationDbContext();
+            var username = db.Users.Find(User.Identity.GetUserId());
+            if (username.Email == "admin@demo.com" || username.Email == "submitter@demo.com" || username.Email == "projectmanager@demo.com" || username.Email == "developer@demo.com")
             {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                user.FirstName = model.UpdatedFirstName;
+                user.LastName = model.UpdatedLastName;
+                UserManager.Update(user);
+                var result = UserManager.Update(user);
+                if (result.Succeeded)
+                {
+                    //var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return RedirectToAction("Index", new { Message = ManageMessageId.ChangeNameSuccess });
+                }
+                AddErrors(result);
                 return View(model);
             }
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            user.FirstName = model.UpdatedFirstName;
-            user.LastName = model.UpdatedLastName;
-            UserManager.Update(user);
-            var result = UserManager.Update(user);
-            if (result.Succeeded)
-            {
-                //var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeNameSuccess });
-            }
-            AddErrors(result);
-            return View(model);
+            
         }
 
         //
@@ -369,7 +418,7 @@ namespace bwarrickBugTracker.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -421,6 +470,6 @@ namespace bwarrickBugTracker.Controllers
             ChangeNameSuccess
         }
 
-#endregion
+        #endregion
     }
 }

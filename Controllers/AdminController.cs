@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace bwarrickBugTracker.Controllers
 {
+    [RequireHttps]
     [Authorize(Roles = "Admin")]
     public class AdminController : Universal
     {

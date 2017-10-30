@@ -23,7 +23,19 @@ $(document).ready(function(){
 				showAll: "Show all"
 			},
 		});
-	}
+    }
+
+    if ($('#datatable-column-interactive2').length > 0) {
+        $('#datatable-column-interactive2').dataTable({
+          
+            "bPaginate": true,
+            //colVis: {
+            //    buttonText: 'Show / Hide Columns',
+            //    restore: "Restore",
+            //    showAll: "Show all"
+            //},
+        });
+    }
 
 	/* column filters */
 	if( $('#datatable-column-filter').length > 0 ) {
@@ -80,8 +92,15 @@ $(document).ready(function(){
 
 	if( $('#ticket-table').length > 0 ) {
 		$('#ticket-table').dataTable({
-			sDom: "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'>",
-			"bPaginate": false,
+            sDom: "RC" +
+            "t" +
+            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            //colVis: {
+            //    buttonText: 'Show / Hide Columns',
+            //    restore: "Restore",
+            //    showAll: "Show all"
+            //},
+			"bPaginate": true,
 		});
 	}
 

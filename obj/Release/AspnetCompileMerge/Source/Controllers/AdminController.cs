@@ -1,4 +1,5 @@
 ﻿using bwarrickBugTracker.Models;
+using bwarrickBugTracker.Models.CodeFirst;
 using bwarrickBugTracker.Models.Helpers;
 using Microsoft.AspNet.Identity;
 using System;
@@ -9,8 +10,9 @@ using System.Web.Mvc;
 
 namespace bwarrickBugTracker.Controllers
 {
+    [RequireHttps]
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class AdminController : Universal
     {
         ApplicationDbContext db = new ApplicationDbContext();
         private UserRoleHelper helper = new UserRoleHelper();

@@ -43,7 +43,7 @@ namespace bwarrickBugTracker.Models.Helpers
         public List<Project> ListUserProjects(string userId)
         {
             var user = db.Users.Find(userId);
-            return user.Projects.ToList();
+            return user.Projects.Where(p => p.Active == true).ToList();
         }
 
         public ICollection<ApplicationUser> ListUsersOnProject(int projectId)

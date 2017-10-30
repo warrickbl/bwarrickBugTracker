@@ -10,10 +10,10 @@ using System.Web.Mvc;
 
 namespace bwarrickBugTracker.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    [RequireHttps]
+ 
+    public class HomeController : Universal
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         [Authorize]
         public ActionResult Index()
         {
@@ -35,7 +35,7 @@ namespace bwarrickBugTracker.Controllers
         {
             return View(db.Projects.ToList());
         }
-
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -43,10 +43,18 @@ namespace bwarrickBugTracker.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Landing()
         {
-            ViewBag.Message = "Your contact page.";
+            return View();
+        }
 
+        public ActionResult HTMLError()
+        {
+            return View();
+        }
+
+        public ActionResult Error()
+        {
             return View();
         }
     }

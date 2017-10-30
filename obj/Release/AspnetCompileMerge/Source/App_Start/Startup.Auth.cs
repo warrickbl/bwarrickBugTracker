@@ -58,11 +58,11 @@ namespace bwarrickBugTracker
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1070224337829-suabrdnk4jnoog8sus79qfd6cnf6jvsc.apps.googleusercontent.com",
+                ClientSecret = "YD-CCK-7wkMlXKEMDiwsApBr"
+            });
         }
     }
 }

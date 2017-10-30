@@ -12,6 +12,7 @@ using bwarrickBugTracker.Models;
 
 namespace bwarrickBugTracker.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
@@ -90,6 +91,107 @@ namespace bwarrickBugTracker.Controllers
                     return View(model);
             }
         }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> AdminDemoLogin()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View("Login");
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync("admin@demo.com", "AdminDemo123!", false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Home");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View("Login");
+            }
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> ProjectManagerDemoLogin()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View("Login");
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync("projectmanager@demo.com", "ProjectManager123!", false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Home");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View("Login");
+            }
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> SubmitterDemoLogin()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View("Login");
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync("submitter@demo.com", "SubmitterDemo123!", false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Home");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View("Login");
+            }
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> DeveloperDemoLogin()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View("Login");
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync("developer@demo.com", "DeveloperDemo123!", false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Home");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View("Login");
+            }
+        }
+
 
         //
         // GET: /Account/VerifyCode

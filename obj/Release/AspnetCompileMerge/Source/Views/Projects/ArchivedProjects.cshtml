@@ -1,0 +1,119 @@
+﻿@model IEnumerable<bwarrickBugTracker.Models.CodeFirst.Project>
+@{
+    ViewBag.Title = "ArchivedProjects";
+}
+
+<h2>ArchivedProjects</h2>
+
+<!-- FEATURED DATA TABLE -->
+<div class="widget widget-table">
+    <div class="widget-header" style="background-color:#084951;">
+        <h3>
+            <i class="fa fa-table"></i> Archived Projects
+        </h3>
+    </div>
+    <div class="widget-content">
+        <table id="featured-datatable" class="table table-sorting table-striped table-hover datatable">
+            <thead>
+                <tr>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Users</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created.LocalDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Updated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+
+                        <td>
+                            @foreach (var user in item.Users)
+                            {
+                                @user.FullName <br />
+                            }
+                        </td>
+                        <td>
+                            <div id="detailsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content" style="padding:50px; text-align:left;">
+                                        <div class="modal-header" style="border-style:none;">
+                                            <button type="button" onclick="Clear()" class="close" style="font-size:45px" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <div class="modal-title" style="border-style:none;">
+                                                <h2>Details</h2>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="basic-info">
+                                                    <h3><i class="fa fa-square"></i> Basic Information</h3>
+                                                    <p class="data-row">
+                                                        <span class="data-name">Ticket Name</span>
+                                                        <span class="data-value">@Html.DisplayFor(modelItem => item.Title)</span>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">Description</span>
+                                                        <span class="data-value">@Html.DisplayFor(modelItem => item.Description)</span>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">Created</span>
+                                                        <span class="data-value">@Html.DisplayFor(modelItem => item.Created)</span>
+                                                    </p>
+                                                    <p class="data-row">
+                                                        <span class="data-name">Updated</span>
+                                                        <span class="data-value"> @Html.DisplayFor(modelItem => item.Updated)</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="activateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content" style="padding:50px; text-align:left;">
+                                        <div class="modal-header" style="border-style:none;">
+                                            <button type="button" onclick="Clear()" class="close" style="font-size:45px" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <div class="modal-title" style="border-style:none;">
+                                                <h2 style="text-align:center">Are you sure you want to ReActivate @item.Title ?</h2>
+                                            </div>
+                                            <div class="modal-body" style="text-align:center;">
+                                                <button class="btn btn-default;" style="color:white;">@Html.ActionLink("Re-Activate", "Reactivate", "Projects", new { id = item.Id }, null)</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-default" style="width:80px; height:30px; font-size:12px;" data-toggle="modal" data-target="#detailsModal">Details</button><br />
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                            {
+                                <button class="btn btn-default" style="width:80px; height:30px; font-size:12px;" data-toggle="modal" data-target="#activateModal">Re-Activate</button><br />
+                              
+                            }
+                        </td>
+
+                    </tr>
+                }
+
+
+                </tbody>
+                </table>
+            </div>
+            </div>
+            <!-- END FEATURED DATA TABLE -->

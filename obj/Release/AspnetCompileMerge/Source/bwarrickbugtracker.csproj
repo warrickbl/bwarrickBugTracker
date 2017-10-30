@@ -19,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44385</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -46,6 +46,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <IncludeIisSettings>false</IncludeIisSettings>
+    <PublishDatabases>true</PublishDatabases>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -114,6 +116,12 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -214,9 +222,12 @@
     <Compile Include="Models\CodeFirst\TicketPriority.cs" />
     <Compile Include="Models\CodeFirst\TicketStatus.cs" />
     <Compile Include="Models\CodeFirst\TicketType.cs" />
+    <Compile Include="Models\CodeFirst\Universal.cs" />
     <Compile Include="Models\Helpers\AdminUserViewModels.cs" />
     <Compile Include="Models\Helpers\CustomHelpers.cs" />
     <Compile Include="Models\Helpers\HistoryHelper.cs" />
+    <Compile Include="Models\Helpers\NotificationEmail.cs" />
+    <Compile Include="Models\Helpers\NotificationHelper.cs" />
     <Compile Include="Models\Helpers\ProjectAssignHelper.cs" />
     <Compile Include="Models\Helpers\ProjectUserViewModels.cs" />
     <Compile Include="Models\Helpers\TicketViewModel.cs" />
@@ -314,18 +325,23 @@
     <Content Include="Assets\theme\assets\fonts\lato-bol-webfont.svg" />
     <Content Include="Assets\theme\assets\fonts\lato-lig-webfont.svg" />
     <Content Include="Assets\theme\assets\fonts\lato-reg-webfont.svg" />
+    <Content Include="Assets\theme\assets\ico\favicon.ico" />
     <Content Include="Assets\theme\assets\ico\favicon.png" />
     <Content Include="Assets\theme\assets\ico\kingadmin-favicon114x114.png" />
     <Content Include="Assets\theme\assets\ico\kingadmin-favicon144x144.png" />
     <Content Include="Assets\theme\assets\ico\kingadmin-favicon57x57.png" />
     <Content Include="Assets\theme\assets\ico\kingadmin-favicon72x72.png" />
     <Content Include="Assets\theme\assets\img\black-linen.png" />
+    <Content Include="Assets\theme\assets\img\blue ploy.jpg" />
+    <Content Include="Assets\theme\assets\img\blur poly.jpg" />
     <Content Include="Assets\theme\assets\img\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="Assets\theme\assets\img\bootstrap-colorpicker\alpha.png" />
     <Content Include="Assets\theme\assets\img\bootstrap-colorpicker\hue-horizontal.png" />
     <Content Include="Assets\theme\assets\img\bootstrap-colorpicker\hue.png" />
     <Content Include="Assets\theme\assets\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Assets\theme\assets\img\BugLogo - Copy.jpg" />
     <Content Include="Assets\theme\assets\img\clear.png" />
+    <Content Include="Assets\theme\assets\img\color poly.jpg" />
     <Content Include="Assets\theme\assets\img\dashboard-collapsed-sidebar.png" />
     <Content Include="Assets\theme\assets\img\dashboard-fixed-sidebar.png" />
     <Content Include="Assets\theme\assets\img\dashboard-minified-sidebar.png" />
@@ -337,6 +353,7 @@
     <Content Include="Assets\theme\assets\img\gallery\bugtrack2.png" />
     <Content Include="Assets\theme\assets\img\gallery\cafe.jpg" />
     <Content Include="Assets\theme\assets\img\gallery\chair.jpg" />
+    <Content Include="Assets\theme\assets\img\gallery\color poly2.jpg" />
     <Content Include="Assets\theme\assets\img\gallery\cuba-cup.jpg" />
     <Content Include="Assets\theme\assets\img\gallery\desk.jpg" />
     <Content Include="Assets\theme\assets\img\gallery\desk2.jpg" />
@@ -346,6 +363,7 @@
     <Content Include="Assets\theme\assets\img\gallery\kitsune.jpg" />
     <Content Include="Assets\theme\assets\img\gallery\lighthouse.jpg" />
     <Content Include="Assets\theme\assets\img\gallery\mac.jpg" />
+    <Content Include="Assets\theme\assets\img\geo background.jpg" />
     <Content Include="Assets\theme\assets\img\gritter.png" />
     <Content Include="Assets\theme\assets\img\ie-spacer.gif" />
     <Content Include="Assets\theme\assets\img\kingadmin-logo-white.png" />
@@ -362,6 +380,7 @@
     <Content Include="Assets\theme\assets\img\select2-spinner.gif" />
     <Content Include="Assets\theme\assets\img\triangular.png" />
     <Content Include="Assets\theme\assets\img\user-avatar.png" />
+    <Content Include="Assets\theme\assets\img\white poly.jpg" />
     <Content Include="Assets\theme\assets\js\bootstrap\bootstrap.js" />
     <Content Include="Assets\theme\assets\js\bootstrap\bootstrap.min.js" />
     <Content Include="Assets\theme\assets\js\jquery-ui\jquery-ui-1.10.4.custom.js" />
@@ -552,6 +571,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -752,9 +772,122 @@
     <Content Include="Assets\theme\sass\vendors\_summernote.scss" />
     <Content Include="Assets\theme\sass\vendors\_typeahead.js-bootstrap.scss" />
     <Content Include="Assets\theme\sass\vendors\_ui.jqgrid.scss" />
+    <Content Include="morris.js-0.5.1\.gitignore" />
+    <Content Include="morris.js-0.5.1\.travis.yml" />
+    <Content Include="morris.js-0.5.1\bower.json" />
+    <Content Include="morris.js-0.5.1\bower.travis.json" />
+    <Content Include="morris.js-0.5.1\less\morris.core.less" />
+    <Content Include="morris.js-0.5.1\lib\morris.area.coffee" />
+    <Content Include="morris.js-0.5.1\lib\morris.bar.coffee" />
+    <Content Include="morris.js-0.5.1\lib\morris.coffee" />
+    <Content Include="morris.js-0.5.1\lib\morris.donut.coffee" />
+    <Content Include="morris.js-0.5.1\lib\morris.grid.coffee" />
+    <Content Include="morris.js-0.5.1\lib\morris.hover.coffee" />
+    <Content Include="morris.js-0.5.1\lib\morris.line.coffee" />
+    <Content Include="morris.js-0.5.1\package.json" />
+    <Content Include="morris.js-0.5.1\README.md" />
+    <Content Include="morris.js-0.5.1\spec\lib\area\area_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\bar\bar_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\bar\colours.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\commas_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\donut\donut_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\grid\auto_grid_lines_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\grid\set_data_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\grid\y_label_format_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\hover_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\label_series_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\line\line_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\pad_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\lib\parse_time_spec.coffee" />
+    <Content Include="morris.js-0.5.1\spec\support\placeholder.coffee" />
+    <Content Include="morris.js-0.5.1\spec\viz\run.sh" />
     <None Include="Properties\PublishProfiles\bwarrick-bugtracker - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\bwarrick-bugtracker - Web Deploy.pubxml" />
+    <Content Include="Landing\css\bootstrap.css.map" />
+    <Content Include="Landing\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="Landing\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Landing\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="Landing\css\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Landing\css\bootstrap.css" />
+    <Content Include="Landing\css\bootstrap.min.css" />
+    <Content Include="Landing\css\custom.css" />
+    <Content Include="Landing\css\font-awesome-animation.min.css" />
+    <Content Include="Landing\css\font-awesome.css" />
+    <Content Include="Landing\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="Landing\css\onepage-scroll.css" />
+    <Content Include="Landing\css\style.default.css" />
+    <Content Include="Landing\img\about.jpg" />
+    <Content Include="Landing\img\BugLogo.jpg" />
+    <Content Include="Landing\img\C#.jpg" />
+    <Content Include="Landing\img\CSharp.png" />
+    <Content Include="Landing\img\CSS.png" />
+    <Content Include="Landing\img\fab4.jpg" />
+    <Content Include="Landing\img\HTML.png" />
+    <Content Include="Landing\img\JS.png" />
+    <Content Include="Landing\img\Landing.jpg" />
+    <Content Include="Landing\img\Landing2.jpg" />
+    <Content Include="Landing\img\macbook-juice.jpg" />
+    <Content Include="Landing\img\MVC.png" />
+    <Content Include="Landing\img\portfolio-1.jpg" />
+    <Content Include="Landing\img\portfolio-2.jpg" />
+    <Content Include="Landing\img\portfolio-3.jpg" />
+    <Content Include="Landing\img\portfolio-4.jpg" />
+    <Content Include="Landing\img\portfolio-5.jpg" />
+    <Content Include="Landing\img\portfolio-6.jpg" />
+    <Content Include="Landing\img\sprites\sprite.png" />
+    <Content Include="Landing\img\SQL.jpg" />
+    <Content Include="Landing\index.html" />
+    <Content Include="Landing\js\bootstrap.min.js" />
+    <Content Include="Landing\js\front.js" />
+    <Content Include="Landing\js\jquery-1.11.0.min.js" />
+    <Content Include="Landing\js\jquery.cookie.js" />
+    <Content Include="Landing\js\jquery.onepage-scroll.js" />
+    <Content Include="Landing\js\main.js" />
+    <Content Include="Landing\js\respond.min.js" />
+    <Content Include="Landing\readme.txt" />
+    <Content Include="morris.js-0.5.1\examples\area-as-line.html" />
+    <Content Include="morris.js-0.5.1\examples\area.html" />
+    <Content Include="morris.js-0.5.1\examples\bar-colors.html" />
+    <Content Include="morris.js-0.5.1\examples\bar-no-axes.html" />
+    <Content Include="morris.js-0.5.1\examples\bar.html" />
+    <Content Include="morris.js-0.5.1\examples\days.html" />
+    <Content Include="morris.js-0.5.1\examples\decimal-custom-hover.html" />
+    <Content Include="morris.js-0.5.1\examples\diagonal-xlabels-bar.html" />
+    <Content Include="morris.js-0.5.1\examples\diagonal-xlabels.html" />
+    <Content Include="morris.js-0.5.1\examples\donut-colors.html" />
+    <Content Include="morris.js-0.5.1\examples\donut-formatter.html" />
+    <Content Include="morris.js-0.5.1\examples\donut.html" />
+    <Content Include="morris.js-0.5.1\examples\dst.html" />
+    <Content Include="morris.js-0.5.1\examples\events.html" />
+    <Content Include="morris.js-0.5.1\examples\goals.html" />
+    <Content Include="morris.js-0.5.1\examples\lib\example.css" />
+    <Content Include="morris.js-0.5.1\examples\lib\example.js" />
+    <Content Include="morris.js-0.5.1\examples\months-no-smooth.html" />
+    <Content Include="morris.js-0.5.1\examples\negative.html" />
+    <Content Include="morris.js-0.5.1\examples\no-grid.html" />
+    <Content Include="morris.js-0.5.1\examples\non-continuous.html" />
+    <Content Include="morris.js-0.5.1\examples\non-date.html" />
+    <Content Include="morris.js-0.5.1\examples\quarters.html" />
+    <Content Include="morris.js-0.5.1\examples\resize.html" />
+    <Content Include="morris.js-0.5.1\examples\stacked_bars.html" />
+    <Content Include="morris.js-0.5.1\examples\timestamps.html" />
+    <Content Include="morris.js-0.5.1\examples\updating.html" />
+    <Content Include="morris.js-0.5.1\examples\weeks.html" />
+    <Content Include="morris.js-0.5.1\examples\years.html" />
+    <Content Include="morris.js-0.5.1\examples\_template.html" />
+    <Content Include="morris.js-0.5.1\Gruntfile.js" />
+    <Content Include="morris.js-0.5.1\morris.css" />
+    <Content Include="morris.js-0.5.1\morris.js" />
+    <Content Include="morris.js-0.5.1\morris.min.js" />
+    <Content Include="morris.js-0.5.1\spec\specs.html" />
+    <Content Include="morris.js-0.5.1\spec\viz\examples.js" />
+    <Content Include="morris.js-0.5.1\spec\viz\exemplary\area0.png" />
+    <Content Include="morris.js-0.5.1\spec\viz\exemplary\bar0.png" />
+    <Content Include="morris.js-0.5.1\spec\viz\exemplary\line0.png" />
+    <Content Include="morris.js-0.5.1\spec\viz\exemplary\stacked_bar0.png" />
+    <Content Include="morris.js-0.5.1\spec\viz\test.html" />
+    <Content Include="morris.js-0.5.1\spec\viz\visual_specs.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -832,6 +965,11 @@
     <Content Include="Views\Tickets\EditComment.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\Home\Landing.cshtml" />
+    <Content Include="Views\Projects\ArchivedProjects.cshtml" />
+    <Content Include="Views\Tickets\ArchivedTickets.cshtml" />
+    <Content Include="Views\Home\HTMLError.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -859,7 +997,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50967</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50967/</IISUrl>
+          <IISUrl>https://localhost:44385/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

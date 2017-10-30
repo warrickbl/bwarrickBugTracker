@@ -13,7 +13,7 @@
 
     <!-- FEATURED DATA TABLE -->
     <div class="widget widget-table">
-        <div class="widget-header">
+        <div class="widget-header" style="background-color:#084951;">
             <h3><i class="fa fa-table"></i>Employee Roles</h3>
         </div>
         <div class="widget-content">
@@ -57,7 +57,7 @@
                     @item.User.Projects
                 </td>*@
                             <td>
-                                @Html.ActionLink("Edit Roles", "EditUserRoles", new { id = item.User.Id })
+                                <button style="background-color:gray;" class="btn btn-sm">@Html.ActionLink("Edit Roles", "EditUserRoles", new { id = item.User.Id }, new { @style = "color:white; text-decoration:none;" })</button>
                             </td>
                         </tr>
                     }

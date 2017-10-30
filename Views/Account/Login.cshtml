@@ -1,10 +1,12 @@
 ﻿@using bwarrickBugTracker.Models
 @model LoginViewModel
 @{
-   
-       Layout = null;
+
+    Layout = null;
 }
 <head>
+    <title>GallaTracker-Login</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Assets/theme/assets/ico/favicon.ico" />
     <!-- CSS -->
 
     <link href="~/Assets/theme/assets/css/skins/teal.css" rel="stylesheet" />
@@ -13,6 +15,7 @@
     <link href="~/Assets/theme/assets/css/main.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/theme/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
     <link href="~/Assets/MultiSelect/multi-select.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Julius+Sans+One|Poiret+One|Sanchez" rel="stylesheet">
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/kingadmin-favicon144x144.png">
@@ -24,170 +27,141 @@
 
 <h2>@ViewBag.Title.</h2>
 @*<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                //Enable this once you have account confirmation enabled for password reset functionality
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
                     <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        @Html.ActionLink("Register as a new user", "Register")
                     </p>
-            }
-        </section>
+                    //Enable this once you have account confirmation enabled for password reset functionality
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        </p>
+                }
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
-<body style="background-color:teal">
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+<body style="background-image: url('../../Assets/theme/assets/img/white poly.jpg');">
     <div class="wrapper full-page-wrapper page-auth page-login text-center">
         <div class="inner-page">
             <div class="logo">
+
                 @*<a href="index.html"><img src="assets/img/kingadmin-logo.png" alt="" /></a>*@
             </div>
             @*<button type="button" class="btn btn-auth-facebook"><span>Login via Facebook</span></button>
-            <div class="separator"><span>OR</span></div>*@
-@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-            <div class="login-box center-block">
-                <form class="form-horizontal" role="form">
-                    <p class="title">Use your username</p>
-                    <div class="form-group">
-                        <label for="username" class="control-label sr-only">Email Address</label>
-                        <div class="col-sm-12">
-                            <div class="input-group">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                
+                <div class="separator"><span>OR</span></div>*@
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="login-box center-block" style="font-family:'Josefin Sans', sans-serif;">
+                    <form class="form-horizontal" role="form">
+                        <p class="title" style="text-align:center">Login With Your Username</p>
+                        <div class="form-group">
+                            <label for="username" class="control-label sr-only">Email Address</label>
+                            <div class="col-sm-offset-3">
+                                <div class="input-group">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                                     <div class="input-group">
                                         <input type="text" placeholder="Email Address" name="Email" class="form-control">
                                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    </div>                           
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <label for="password" class="control-label sr-only">Password</label>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <div class="input-group">
+                        <label for="password" class="control-label sr-only">Password</label>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3">
+                                <div class="input-group">
                                     <div class="input-group">
                                         <input type="password" placeholder="Password" name="password" class="form-control">
                                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                    </div>                             
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <label class="fancy-checkbox">
-                        <input type="checkbox">
-                        <span>Remember me next time</span>
-                    </label>
-                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login</button>
-                </form>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-group" hidden>
-                        <div class="input-group" hidden>
-                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="admin@demo.com" hidden>
-                            <input type="password" placeholder="Password" name="password" class="form-control" value="AdminDemo123!" hidden>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Admin Demo</button>
+                        <label class="fancy-checkbox col-sm-offset-3">
+                            <input type="checkbox">
+                            <span>Remember me next time</span>
+                        </label>
+                        <button type="submit" class="btn btn-lg btn-block btn-auth" style="background-color:#084951; color:white;font-family:'Josefin Sans', sans-serif;"><i class="fa fa-arrow-circle-o-right"></i> Login</button>
+                    </form>
+                    <form class="form-horizontal" role="form" style="text-align:center; text-decoration:none;">
+                        <p>
+                            @Html.ActionLink("Register as a new user", "Register")
+                        </p>
 
-                }
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-group" hidden>
-                        <div class="input-group" hidden>
-                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="projectmanager@demo.com" hidden>
-                            <input type="password" placeholder="Password" name="password" class="form-control" value="ProjectManager123!" hidden>
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        </p>
+                        <div>
+                            <button class="btn btn-lg btn-block btn-auth" style="background-color:#084951; color:white;font-family:'Josefin Sans', sans-serif;"><i class="fa fa-arrow-circle-o-right"></i>@Html.ActionLink("Admin Demo Login", "AdminDemoLogin", "Account", null, new { @style = "color:white;font-family:'Josefin Sans', sans-serif; text-decoration:none;" })</button>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Project Manager Demo</button>
-
-                }
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-group" hidden>
-                        <div class="input-group" hidden>
-                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="submitter@demo.com" hidden>
-                            <input type="password" placeholder="Password" name="password" class="form-control" value="SubmitterDemo123!" hidden>
+                        <div>
+                            <button class="btn btn-lg btn-block btn-auth" style="background-color:#084951; color:white;font-family:'Josefin Sans', sans-serif;"><i class="fa fa-arrow-circle-o-right"></i>@Html.ActionLink("Submitter Demo Login", "SubmitterDemoLogin", "Account", null, new { @style = "color:white;font-family:'Josefin Sans', sans-serif; text-decoration:none;" })</button>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Submitter Demo</button>
-
-                }
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-group" hidden>
-                        <div class="input-group" hidden>
-                            <input type="text" placeholder="Email Address" name="Email" class="form-control" value="developer@demo.com" hidden>
-                            <input type="password" placeholder="Password" name="password" class="form-control" value="DeveloperDemo123!" hidden>
+                        <div>
+                            <button class="btn btn-lg btn-block btn-auth" style="background-color:#084951; color:white;font-family:'Josefin Sans', sans-serif;"><i class="fa fa-arrow-circle-o-right"></i>@Html.ActionLink("Project Manager Demo Login", "ProjectManagerDemoLogin", "Account", null, new { @style = "color:white;font-family:'Josefin Sans', sans-serif; text-decoration:none;" })</button>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-arrow-circle-o-right"></i> Login as Developer Demo</button>
-
-                }
+                        <div>
+                            <button class="btn btn-lg btn-block btn-auth" style="background-color:#084951; color:white;font-family:'Josefin Sans', sans-serif;"><i class="fa fa-arrow-circle-o-right"></i>@Html.ActionLink("Developer Demo Login", "DeveloperDemoLogin", "Account", null, new { @style = "color:white;font-family:'Josefin Sans', sans-serif; text-decoration:none;" })</button>
+                        </div>
+                    </form>
+                </div>
+            }
+            <div class="login-box center-block" style="font-family:'Josefin Sans', sans-serif;">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
             </div>
-}
         </div>
     </div>
 
     <script src="~/Assets/theme/assets/js/jquery/jquery-2.1.0.min.js"></script>
     <script src="~/Assets/theme/assets/js/bootstrap/bootstrap.min.js"></script>
     <script src="~/Assets/theme/assets/js/plugins/modernizr/modernizr.js"></script>
-    
-</body>
 
+</body>

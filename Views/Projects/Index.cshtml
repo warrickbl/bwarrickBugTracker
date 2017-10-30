@@ -4,15 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Projects Index</h2>
 <!-- FEATURED DATA TABLE -->
 <div class="widget widget-table">
-    <div class="widget-header">
-        <h3><i class="fa fa-table"></i>Projects
+    <div class="widget-header" style="background-color:#084951">
+        <h3><i class="fa fa-table"></i><b>Projects:</b> 
         @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
         {
-            @Html.ActionLink("View All Projects | ", "AllProjects", "Projects") 
-            @Html.ActionLink("Create New", "Create")
+            @Html.ActionLink("View All Projects | ", "AllProjects", "Projects", null, new { @style="color:white; text-decoration:none;"})
+            <button class="btn btn-default btn-sm">@Html.ActionLink("Create New", "Create", "Projects", null, new { @style = "color:white; text-decoration:none;" })</button>
         }</h3>
     </div>
     <div class="widget-content">
@@ -34,7 +34,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Created)
+                            @Html.DisplayFor(modelItem => item.Created.LocalDateTime)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Updated)
@@ -58,19 +58,17 @@
                             </td>*@
                         <td>
 
-                            @Html.ActionLink("Details", "Details", new { id = item.Id })  <p></p>
-
+                            <button style="background-color:gray;" class="btn btn-sm">@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @style = "color:white; text-decoration:none;" })</button>
+                            <p></p>
                             @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
-                             {
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id })  <p></p>
-
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })  <p></p>
-                                @Html.ActionLink("Edit Project Users", "EditProjectUsers", "Projects", new { id = item.Id }, null) <p></p>
-                             }
-                            @if (User.IsInRole("Submitter"))
                             {
-                                @Html.ActionLink("Create Ticket", "Create", "Tickets", new { id = item.Id }, null)
-                            }
+                                <button style="background-color:gray;" class="btn btn-sm">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @style = "color:white; text-decoration:none;" })</button>
+                                <p></p>
+                                <button style="background-color:gray;" class="btn btn-sm">@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @style = "color:white; text-decoration:none;" })</button>
+                                <p></p>
+                                <button style="background-color:gray;" class="btn btn-sm">@Html.ActionLink("Edit Project Users", "EditProjectUsers", "Projects", new { id = item.Id }, new { @style = "color:white; text-decoration:none;" })</button>
+                                <p></p>
+                             }
                         </td>
                     </tr>
                 }
